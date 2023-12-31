@@ -1,0 +1,179 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id               Int               @id @default(autoincrement())
+  email            String            @unique
+  username         String            @unique
+  password         String
+  name             String?
+  role             Role              @default(USER)
+  products         Product[]
+  cartItems        CartItem[]
+  favoriteProducts FavoriteProduct[]
+  createdDiscounts Discount[]
+  purchases        Purchase[]
+  comments         Comment[]
+  ratings          Rating[]
+  createdAt        DateTime
+  updatedAt        DateTime          @updatedAt
+}
+
+model Product {
+  id            Int               @id @default(autoincrement())
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+  published     Boolean           @default(false)
+  title         String            @db.VarChar(255)
+  description   String            @db.VarChar(255)
+  price         Float
+  stock         Int
+  author        User?             @relation(fields: [authorId], references: [id])
+  authorId      Int?
+  cartItems     CartItem[]
+  favorites     FavoriteProduct[]
+  discounts     AppliedDiscount[]
+  type          ProductType
+  category      ProductCategory
+  colors        Color[]
+  sizes         Size[]
+  comments      Comment[]
+  ratings       Rating[]
+  imageUrls     String[]
+  purchaseItems PurchaseItem[]
+}
+
+// Carrito de compras (Many-to-Many)
+model CartItem {
+  id        Int     @id @default(autoincrement())
+  quantity  Int
+  userId    Int
+  productId Int
+  user      User    @relation(fields: [userId], references: [id])
+  product   Product @relation(fields: [productId], references: [id])
+
+  @@unique([userId, productId])
+}
+
+// Favoritos (Many-to-Many)
+model FavoriteProduct {
+  id        Int     @id @default(autoincrement())
+  userId    Int
+  productId Int
+  user      User    @relation(fields: [userId], references: [id])
+  product   Product @relation(fields: [productId], references: [id])
+
+  @@unique([userId, productId])
+}
+
+model Discount {
+  id          Int               @id @default(autoincrement())
+  title       String
+  percentage  Float
+  validFrom   DateTime
+  validUntil  DateTime
+  createdBy   User              @relation(fields: [createdById], references: [id])
+  createdById Int
+  products    AppliedDiscount[]
+}
+
+model AppliedDiscount {
+  id         Int      @id @default(autoincrement())
+  productId  Int
+  discountId Int
+  product    Product  @relation(fields: [productId], references: [id])
+  discount   Discount @relation(fields: [discountId], references: [id])
+
+  @@unique([productId, discountId])
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  text      String
+  createdAt DateTime @default(now())
+  author    User     @relation(fields: [authorId], references: [id])
+  product   Product  @relation(fields: [productId], references: [id])
+  authorId  Int
+  productId Int
+}
+
+model Rating {
+  id        Int      @id @default(autoincrement())
+  value     Int
+  createdAt DateTime @default(now())
+  authorId  Int
+  productId Int
+  author    User     @relation(fields: [authorId], references: [id])
+  product   Product  @relation(fields: [productId], references: [id])
+}
+
+model Purchase {
+  id            Int            @id @default(autoincrement())
+  createdAt     DateTime       @default(now())
+  userId        Int
+  user          User           @relation(fields: [userId], references: [id])
+  purchaseItems PurchaseItem[]
+  totalDiscount Float
+  addressLine   String
+  city          String
+  state         String
+  postalCode    String
+  phoneNumber   String
+}
+
+model PurchaseItem {
+  id         Int      @id @default(autoincrement())
+  purchaseId Int
+  productId  Int
+  quantity   Int
+  purchase   Purchase @relation(fields: [purchaseId], references: [id])
+  product    Product  @relation(fields: [productId], references: [id])
+}
+
+enum Role {
+  USER
+  ADMIN
+  VENDOR
+}
+
+enum ProductType {
+  MATE
+  YERBERO
+  MATERA
+  BOMBILLA
+  TERMOS
+}
+
+enum ProductCategory {
+  CAMIONERO
+  TORPEDO
+  IMPERIAL
+  METALICOS
+  PLASTICOS
+}
+
+enum Color {
+  MORADO
+  NEGRO
+  BLANCO
+  AZUL
+  AMARILLO
+  MARRON_OSCURO
+  MARRON_CLARO
+  GRIS
+  ROSA
+  TURQUEZA
+}
+
+enum Size {
+  S
+  M
+  L
+  XXL
+}
