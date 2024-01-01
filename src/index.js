@@ -9,11 +9,13 @@ const apiRouter = require("./routes/v1");
 const cors = require('cors');
 const error = require('./middlewares/error.middleware');
 const logger = require('./config/logger');
-
+const fileUpload = require('express-fileupload');
 
 const app = express();
 app.use(express.json());
 
+// enable files upload
+app.use(fileUpload());
 // request logging. dev: console | production: file
 app.use(morgan('dev'));
 

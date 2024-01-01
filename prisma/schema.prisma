@@ -21,6 +21,7 @@ model User {
   purchases        Purchase[]
   comments         Comment[]
   ratings          Rating[]
+  imageProfile     String?
   createdAt        DateTime
   updatedAt        DateTime          @updatedAt
 }
@@ -125,6 +126,7 @@ model Purchase {
   state         String
   postalCode    String
   phoneNumber   String
+  status        StatusPurchase @default(PENDING)
 }
 
 model PurchaseItem {
@@ -134,6 +136,12 @@ model PurchaseItem {
   quantity   Int
   purchase   Purchase @relation(fields: [purchaseId], references: [id])
   product    Product  @relation(fields: [productId], references: [id])
+}
+
+enum StatusPurchase {
+  PENDING
+  COMPLETED
+  CANCELED
 }
 
 enum Role {
@@ -159,16 +167,16 @@ enum ProductCategory {
 }
 
 enum Color {
-  MORADO
-  NEGRO
-  BLANCO
-  AZUL
-  AMARILLO
-  MARRON_OSCURO
-  MARRON_CLARO
-  GRIS
-  ROSA
-  TURQUEZA
+  PURPLE
+  BLACK
+  WHITE
+  BLUE
+  YELLOW
+  DARK_BROWN
+  LIGHT_BROWN
+  GRAY
+  PINK
+  TURQUOISE
 }
 
 enum Size {

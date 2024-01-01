@@ -7,5 +7,7 @@ const ProfileController = require('../../controllers/profile.controller');
 
 router.get('/', ProfileController.getProfile);
 
+router.put('/', ProfileController.updateProfile);
+
 module.exports = router;
 

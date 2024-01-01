@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
+
 // Importar el controlador de usuarios
-const ProductsController = require('../../controllers/products.controller');
+const ProductsController = require('../../controllers/product.controller');
 
 // Importar el middleware de autorización
 const AccessControl = require('../../middlewares/access.middleware');

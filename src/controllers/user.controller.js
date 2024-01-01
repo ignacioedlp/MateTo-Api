@@ -1,4 +1,5 @@
 const UserService = require('../services/userServices');
+const logger = require('../config/logger');
 
 const UsersController = {
   getAllUsers: async (req, res, next) => {
@@ -6,6 +7,7 @@ const UsersController = {
       const users = await UserService.getAllUsers();
       res.status(200).json(users);
     } catch (err) {
+      logger.error(err);
       next(err);
     }
   },
@@ -15,6 +17,7 @@ const UsersController = {
       const user = await UserService.getUserById(req.params.id);
       res.status(200).json(user);
     } catch (err) {
+      logger.error(err);
       next(err);
     }
   },
@@ -24,6 +27,7 @@ const UsersController = {
       const createdUser = await UserService.createUser(req.body);
       res.status(201).json(createdUser);
     } catch (err) {
+      logger.error(err);
       next(err);
     }
   },
@@ -33,6 +37,7 @@ const UsersController = {
       const updatedUser = await UserService.updateUser(req.params.id, req.body);
       res.status(200).json(updatedUser);
     } catch (err) {
+      logger.error(err);
       next(err);
     }
   },
@@ -42,6 +47,7 @@ const UsersController = {
       const deletedUser = await UserService.deleteUser(req.params.id);
       res.status(200).json(deletedUser);
     } catch (err) {
+      logger.error(err);
       next(err);
     }
   }
