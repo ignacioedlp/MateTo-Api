@@ -21,6 +21,7 @@ const AuthService = {
         username: userData.username,
         name: userData.name,
         createdAt: new Date(),
+        role: userData.isUser ? 'USER' : 'VENDOR',
       },
     });
 
@@ -39,8 +40,13 @@ const AuthService = {
       throw new Error('Contraseña incorrecta');
     }
 
-    const token = jwt.sign({ userId: user.id, role: user.role, username: user.username, email: user.email }, process.env.SECRET, { expiresIn: '1h' });
-    return token;
+    const token = this.generateToken({ userId: user.id, role: user.role, username: user.username, email: user.email });
+    return {
+      token,
+      user: {
+        imageProfile: user.imageProfile,
+      },
+    };
   },
 
   // Verificar token JWT
@@ -50,7 +56,32 @@ const AuthService = {
     } catch (error) {
       throw new Error('Token inválido');
     }
-  }
+  },
+
+  // Verificar contraseña
+  async verifyPassword(email, password) {
+    const user = await prisma.user.findFirst({ where: { email } });
+    if (!user) {
+      throw new Error('Usuario no encontrado');
+    }
+
+    const validPassword = await bcrypt.compare(password, user.password);
+    return validPassword;
+  },
+
+  // Cambiar contraseña
+  async changePassword(email, newPassword) {
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    await prisma.user.update({
+      where: { email },
+      data: { password: hashedPassword },
+    });
+  },
+
+  // Generar token JWT
+  generateToken(data) {
+    return jwt.sign(data, process.env.SECRET, { expiresIn: '7d' });
+  },
 };
 
 module.exports = AuthService;

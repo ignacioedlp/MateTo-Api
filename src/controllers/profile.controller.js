@@ -24,7 +24,7 @@ const ProfileController = {
 
       const decoded = jwt.verify(token, process.env.SECRET);
 
-      const imageProfile = null;
+      let imageProfile = null;
 
       if (req.files || req.files.image) {
         // Tomo las images del body y las subo a supabase
