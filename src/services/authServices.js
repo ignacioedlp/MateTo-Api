@@ -12,6 +12,16 @@ const AuthService = {
       throw new Error('Las contraseñas no coinciden');
     }
 
+    let rolToAssign = null;
+
+    if (userData.isUser) {
+      const rol = await prisma.role.findFirst({ where: { name: 'USER' } });
+      rolToAssign = rol;
+    } else {
+      const rol = await prisma.role.findFirst({ where: { name: 'VENDOR' } });
+      rolToAssign = rol;
+    }
+
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const newUser = await prisma.user.create({
@@ -21,7 +31,7 @@ const AuthService = {
         username: userData.username,
         name: userData.name,
         createdAt: new Date(),
-        role: userData.isUser ? 'USER' : 'VENDOR',
+        roleId: rolToAssign.id
       },
     });
 
@@ -40,7 +50,11 @@ const AuthService = {
       throw new Error('Contraseña incorrecta');
     }
 
-    const token = this.generateToken({ userId: user.id, role: user.role, username: user.username, email: user.email });
+    const role = await prisma.role.findFirst({ where: { id: user.roleId } });
+
+    console.log(role);
+
+    const token = this.generateToken({ userId: user.id, role: role.name, username: user.username, email: user.email });
     return {
       token,
       user: {

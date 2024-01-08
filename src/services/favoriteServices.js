@@ -13,7 +13,8 @@ const FavoriteService = {
               select: {
                 id: true,
                 title: true,
-                price: true
+                price: true,
+                imageUrls: true
               }
             }
           }

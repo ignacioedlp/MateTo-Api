@@ -7,17 +7,7 @@ const logger = require('../config/logger');
 const ProductsController = {
   getAllProducts: async (req, res, next) => {
     try {
-      const products = await ProductService.getAllProducts();
-      res.status(200).json(products);
-    } catch (err) {
-      logger.error(err);
-      next(err);
-    }
-  },
-
-  getAllProductsForVendor: async (req, res, next) => {
-    try {
-      const products = await ProductService.getAllProductsForVendor(req.params.id);
+      const products = await ProductService.getAllProducts(req.query);
       res.status(200).json(products);
     } catch (err) {
       logger.error(err);
@@ -29,8 +19,7 @@ const ProductsController = {
     try {
       const product = await ProductService.getProductById(req.params.id);
       res.status(200).json(product);
-    } catch (err) 
-    {
+    } catch (err) {
       logger.error(err);
       next(err);
     }
@@ -59,10 +48,10 @@ const ProductsController = {
         stock: parseInt(req.body.stock),
         authorId: decoded.userId,
         published: req.body.published === 'true' ? true : false,
-        type: req.body.type,
-        category: req.body.category,
-        colors: req.body.colors,
-        sizes: req.body.sizes,
+        typeId: parseInt(req.body.type),
+        categoryId: parseInt(req.body.category),
+        colors: req.body.colors.map(color => parseInt(color)),
+        sizes: req.body.sizes.map(size => parseInt(size)),
         imageUrls: imagesUrls,
       }
 

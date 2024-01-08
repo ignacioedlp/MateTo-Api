@@ -12,7 +12,7 @@ const CartController = {
       const decoded = jwt.verify(token, process.env.SECRET);
 
       const cart = await CartService.getCart(decoded.userId);
-      res.status(200).json(cart);
+      res.status(200).json(cart.cartItems);
     } catch (err) {
       logger.error(err);
       next(err);

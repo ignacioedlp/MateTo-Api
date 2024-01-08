@@ -10,8 +10,16 @@ const FavoriteController = {
 
       const decoded = jwt.verify(token, process.env.SECRET);
 
-      const favorite = await FavoriteService.getFavorites(decoded.userId);
-      res.status(200).json(favorite);
+      const { favoriteProducts } = await FavoriteService.getFavorites(decoded.userId)
+
+      const products = favoriteProducts.map(fav => ({
+        id: fav.product.id,
+        title: fav.product.title,
+        price: fav.product.price,
+        imageUrls: fav.product.imageUrls
+      }))
+
+      res.status(200).json(products);
     } catch (err) {
       logger.error(err);
       next(err);
@@ -48,8 +56,19 @@ const FavoriteController = {
         productId: parseInt(req.params.id)
       };
 
-      const favorite = await FavoriteService.removeFromFavorites(productToRemove);
-      res.status(200).json(favorite);
+
+      await FavoriteService.removeFromFavorites(productToRemove);
+
+      const { favoriteProducts } = await FavoriteService.getFavorites(decoded.userId)
+
+      const products = favoriteProducts.map(fav => ({
+        id: fav.product.id,
+        title: fav.product.title,
+        price: fav.product.price,
+        imageUrls: fav.product.imageUrls
+      }))
+
+      res.status(200).json(products);
     } catch (err) {
       logger.error(err);
       next(err);

@@ -13,7 +13,8 @@ model User {
   username         String            @unique
   password         String
   name             String?
-  role             Role              @default(USER)
+  roleId           Int
+  role             Role              @relation(fields: [roleId], references: [id])
   products         Product[]
   cartItems        CartItem[]
   favoriteProducts FavoriteProduct[]
@@ -40,14 +41,16 @@ model Product {
   cartItems     CartItem[]
   favorites     FavoriteProduct[]
   discounts     AppliedDiscount[]
-  type          ProductType
-  category      ProductCategory
-  colors        Color[]
-  sizes         Size[]
   comments      Comment[]
   ratings       Rating[]
   imageUrls     String[]
   purchaseItems PurchaseItem[]
+  typeId        Int
+  categoryId    Int
+  type          ProductType       @relation(fields: [typeId], references: [id])
+  category      ProductCategory   @relation(fields: [categoryId], references: [id])
+  colors        Color[]           @relation("ProductColors")
+  sizes         Size[]            @relation("ProductSizes")
 }
 
 // Carrito de compras (Many-to-Many)
@@ -144,44 +147,42 @@ enum StatusPurchase {
   CANCELED
 }
 
-enum Role {
-  USER
-  ADMIN
-  VENDOR
+model Role {
+  id      Int     @id @default(autoincrement())
+  name    String  @unique
+  enabled Boolean @default(true)
+  users   User[]
 }
 
-enum ProductType {
-  MATE
-  YERBERO
-  MATERA
-  BOMBILLA
-  TERMOS
+// Modelo ProductType
+model ProductType {
+  id       Int       @id @default(autoincrement())
+  name     String    @unique
+  enabled  Boolean   @default(true)
+  products Product[]
 }
 
-enum ProductCategory {
-  CAMIONERO
-  TORPEDO
-  IMPERIAL
-  METALICOS
-  PLASTICOS
+// Modelo ProductCategory
+model ProductCategory {
+  id       Int       @id @default(autoincrement())
+  name     String    @unique
+  enabled  Boolean   @default(true)
+  products Product[]
 }
 
-enum Color {
-  PURPLE
-  BLACK
-  WHITE
-  BLUE
-  YELLOW
-  DARK_BROWN
-  LIGHT_BROWN
-  GRAY
-  PINK
-  TURQUOISE
+// Modelo Color
+model Color {
+  id       Int       @id @default(autoincrement())
+  name     String    @unique
+  enabled  Boolean   @default(true)
+  hex      String    @default("#000000")
+  products Product[] @relation("ProductColors")
 }
 
-enum Size {
-  S
-  M
-  L
-  XXL
+// Modelo Size
+model Size {
+  id       Int       @id @default(autoincrement())
+  name     String    @unique
+  enabled  Boolean   @default(true)
+  products Product[] @relation("ProductSizes")
 }

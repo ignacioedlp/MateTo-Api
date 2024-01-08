@@ -12,9 +12,6 @@ const AccessControl = require('../../middlewares/access.middleware');
 // Get All products
 router.get('/', ProductsController.getAllProducts);
 
-// Get All products for one user
-router.get('/vendor/:id', ProductsController.getAllProductsForVendor);
-
 // Get one product by ID
 router.get('/:id', ProductsController.getProductById);
 

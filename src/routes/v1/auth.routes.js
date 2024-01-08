@@ -58,7 +58,7 @@ router.post('/forgot-password', async (req, res) => {
     const resend = new Resend('re_AdzbXU95_BsLv1dqz8YoGfA6SDJ5EsJ9N');
 
     const { data, error } = await resend.emails.send({
-      from: 'mateto@support.dev',
+      from: 'MateTo <support@resend.dev>',
       to: [email],
       subject: 'Forgot Password',
       html: `<p>Click <a href="${link}">here</a> to reset your password</p>`
