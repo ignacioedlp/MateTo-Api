@@ -1,9 +1,9 @@
 // API /profile
-const express = require('express');
-const router = express.Router();
+import { Router } from 'express';
+const router = Router();
 
 // Importar el controlador de usuarios
-const CartController = require('../../controllers/cart.controller');
+import CartController from '../../controllers/cart.controller';
 
 router.get('/', CartController.getCart);
 
@@ -11,5 +11,5 @@ router.post('/', CartController.addToCart);
 
 router.delete('/:id', CartController.removeFromCart);
 
-module.exports = router;
+export default router;
 

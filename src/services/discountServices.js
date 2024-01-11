@@ -1,4 +1,4 @@
-const { PrismaClient } = require('@prisma/client');
+import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 // model Discount {
@@ -78,4 +78,4 @@ const DiscountService = {
 
 };
 
-module.exports = DiscountService;
+export default DiscountService;

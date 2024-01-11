@@ -1,6 +1,6 @@
-const CartService = require('../services/cartServices');
-const jwt = require('jsonwebtoken');
-const logger = require('../config/logger');
+import CartService from '../services/cartServices';
+import jwt from 'jsonwebtoken';
+import logger from '../config/logger';
 
 
 const CartController = {
@@ -59,4 +59,4 @@ const CartController = {
   }
 };
 
-module.exports = CartController;
+export default CartController;

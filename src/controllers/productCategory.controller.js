@@ -1,5 +1,5 @@
-const ProductCategoryService = require('../services/productCategoryServices');
-const logger = require('../config/logger');
+import ProductCategoryService from '../services/productCategoryServices';
+import logger from '../config/logger';
 
 const ProductCategorysController = {
   getAllProductCategories: async (req, res, next) => {
@@ -53,4 +53,4 @@ const ProductCategorysController = {
   }
 };
 
-module.exports = ProductCategorysController;
+export default ProductCategorysController;

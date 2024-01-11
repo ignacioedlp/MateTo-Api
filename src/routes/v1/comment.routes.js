@@ -1,11 +1,11 @@
-const express = require('express');
-const router = express.Router();
+import { Router } from 'express';
+const router = Router();
 
 // Importar el controlador de usuarios
-const CommentController = require('../../controllers/comment.controller');
+import CommentController from '../../controllers/comment.controller';
 
 // Importar el middleware de autorización
-const AccessControl = require('../../middlewares/access.middleware');
+import AccessControl from '../../middlewares/access.middleware';
 
 // Get all comments
 router.get('/', AccessControl.authorizeRoles('ADMIN'), CommentController.getAllComments);
@@ -19,4 +19,4 @@ router.post('/', CommentController.createComment);
 // Delete comment
 router.delete('/:id', AccessControl.authorizeRoles('ADMIN', 'VENDOR'), CommentController.deleteComment);
 
-module.exports = router;
+export default router;

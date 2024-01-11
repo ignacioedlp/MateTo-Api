@@ -1,4 +1,4 @@
-const { PrismaClient } = require('@prisma/client');
+import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 const SizeService = {
@@ -30,4 +30,4 @@ const SizeService = {
   }
 };
 
-module.exports = SizeService;
+export default SizeService;

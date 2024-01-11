@@ -1,12 +1,7 @@
-const express = require('express');
-const router = express.Router();
-
-
-// Importar el controlador de usuarios
-const ProductsController = require('../../controllers/product.controller');
-
-// Importar el middleware de autorización
-const AccessControl = require('../../middlewares/access.middleware');
+import { Router } from 'express';
+import ProductsController from '../../controllers/product.controller';
+import AccessControl from '../../middlewares/access.middleware';
+const router = Router();
 
 
 // Get All products
@@ -24,4 +19,4 @@ router.put('/:id', AccessControl.authorizeRoles('ADMIN', 'VENDOR'), AccessContro
 // Delete a product by ID
 router.delete('/:id', AccessControl.authorizeRoles('ADMIN', 'VENDOR'), AccessControl.checkIfIsTheSameVendorOrAdminProduct(), ProductsController.deleteProduct);
 
-module.exports = router;
+export default router;

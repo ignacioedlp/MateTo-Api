@@ -1,7 +1,8 @@
-const ProfileService = require('../services/profileServices');
-const SupabaseService = require('../services/supabaseServices');
-const jwt = require('jsonwebtoken');
-const logger = require('../config/logger');
+
+import ProfileService from '../services/profileServices';
+import SupabaseService from '../services/supabaseServices';
+import jwt from 'jsonwebtoken';
+import logger from '../config/logger';
 
 const ProfileController = {
   getProfile: async (req, res, next) => {
@@ -45,4 +46,4 @@ const ProfileController = {
   },
 };
 
-module.exports = ProfileController;
+export default ProfileController;

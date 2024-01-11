@@ -1,13 +1,14 @@
 // API /products 
 
-const express = require('express');
-const router = express.Router();
+import { Router } from 'express';
+const router = Router();
 
 // Importar el controlador de usuarios
-const PurchasesController = require('../../controllers/purchase.controller');
+import PurchasesController from '../../controllers/purchase.controller';
 
 // Middleware para validar accesso
-const AccessControl = require('../../middlewares/access.middleware');
+import AccessControl from '../../middlewares/access.middleware';
+
 
 router.get('/', AccessControl.authorizeRoles('ADMIN'), PurchasesController.getAllPurchases);
 
@@ -19,5 +20,5 @@ router.get('/:id', AccessControl.checkIfIsAuthorOrUserPurchase, PurchasesControl
 
 router.post('/', PurchasesController.createPurchase);
 
-module.exports = router;
+export default  router;
 

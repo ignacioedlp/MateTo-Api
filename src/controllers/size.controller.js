@@ -1,5 +1,5 @@
-const SizeService = require('../services/sizeServices');
-const logger = require('../config/logger');
+import SizeService from '../services/sizeServices';
+import logger from '../config/logger';
 
 const SizesController = {
   getAllSizes: async (req, res, next) => {
@@ -53,4 +53,4 @@ const SizesController = {
   }
 };
 
-module.exports = SizesController;
+export default SizesController;

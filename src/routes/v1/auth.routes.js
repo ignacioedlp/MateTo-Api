@@ -1,9 +1,10 @@
-const express = require('express');
-const AuthService = require('../../services/authServices');
-const UserService = require('../../services/userServices');
-const router = express.Router();
-const logger = require('../../config/logger');
-const { Resend } = require('resend');
+import { Resend } from 'resend';
+import { Router } from 'express';
+import AuthService from '../../services/authServices';
+import UserService from '../../services/userServices';
+import logger from '../../config/logger';
+const router = Router();
+
 
 router.post('/signup', async (req, res) => {
   try {
@@ -87,4 +88,4 @@ router.post('/reset-password', async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

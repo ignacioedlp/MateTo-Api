@@ -1,5 +1,5 @@
-const VendorService = require('../services/vendorServices');
-const logger = require('../config/logger');
+import VendorService from '../services/vendorServices';
+import logger from '../config/logger';
 
 const VendorsController = {
   getAllVendors: async (req, res, next) => {
@@ -23,4 +23,4 @@ const VendorsController = {
   },
 };
 
-module.exports = VendorsController;
+export default VendorsController;

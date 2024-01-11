@@ -1,4 +1,4 @@
-const { PrismaClient } = require('@prisma/client');
+import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 const RatingService = {
@@ -18,4 +18,4 @@ const RatingService = {
   },
 };
 
-module.exports = RatingService;
+export default RatingService;

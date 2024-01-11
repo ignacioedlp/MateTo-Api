@@ -1,4 +1,4 @@
-const { PrismaClient } = require('@prisma/client');
+import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 const RoleService = {
@@ -30,4 +30,4 @@ const RoleService = {
   }
 };
 
-module.exports = RoleService;
+export default RoleService;

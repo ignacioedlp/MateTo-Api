@@ -1,8 +1,9 @@
-const ProductService = require('../services/productServices');
-const SupabaseService = require('../services/supabaseServices');
-const jwt = require('jsonwebtoken');
-const httpStatus = require('http-status');
-const logger = require('../config/logger');
+
+import ProductService from '../services/productServices';
+import SupabaseService from '../services/supabaseServices';
+import httpStatus from 'http-status';
+import jwt from 'jsonwebtoken';
+import logger from '../config/logger';
 
 const ProductsController = {
   getAllProducts: async (req, res, next) => {
@@ -99,4 +100,4 @@ const ProductsController = {
   }
 };
 
-module.exports = ProductsController;
+export default ProductsController;

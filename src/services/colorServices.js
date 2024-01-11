@@ -1,4 +1,4 @@
-const { PrismaClient } = require('@prisma/client');
+import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 const ColorService = {
@@ -30,4 +30,4 @@ const ColorService = {
   }
 };
 
-module.exports = ColorService;
+export default ColorService;

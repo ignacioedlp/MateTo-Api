@@ -1,5 +1,5 @@
-const UserService = require('../services/userServices');
-const logger = require('../config/logger');
+import UserService from '../services/userServices';
+import logger from '../config/logger';
 
 const UsersController = {
   getAllUsers: async (req, res, next) => {
@@ -53,4 +53,4 @@ const UsersController = {
   }
 };
 
-module.exports = UsersController;
+export default UsersController;

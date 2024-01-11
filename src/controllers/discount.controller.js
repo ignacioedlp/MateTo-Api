@@ -1,6 +1,6 @@
-const DiscountService = require('../services/discountServices');
-const jwt = require('jsonwebtoken');
-const logger = require('../config/logger');
+import DiscountService from '../services/discountServices'
+import jwt from 'jsonwebtoken';
+import logger from '../config/logger';
 
 const DiscountController = {
 
@@ -91,4 +91,4 @@ const DiscountController = {
 
 };
 
-module.exports = DiscountController;
+export default DiscountController;

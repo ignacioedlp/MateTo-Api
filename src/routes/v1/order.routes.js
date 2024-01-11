@@ -4,7 +4,7 @@ const router = Router();
 
 import InfoController from '../../controllers/info.controller';
 
-router.get('/', InfoController.getSettings);
+router.get('/', InfoController.getOrders);
 
 export default router;
 

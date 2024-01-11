@@ -1,6 +1,6 @@
-const jwt = require('jsonwebtoken');
-const logger = require('../config/logger');
-const SettingService = require('../services/settingServices');
+import jwt from 'jsonwebtoken';
+import logger from '../config/logger';
+import SettingService from '../services/settingServices';
 
 
 const InfoController = {
@@ -18,4 +18,4 @@ const InfoController = {
   }
 };
 
-module.exports = InfoController;
+export default InfoController;

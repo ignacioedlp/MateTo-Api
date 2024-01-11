@@ -1,11 +1,12 @@
-const express = require('express');
-const router = express.Router();
+import { Router } from 'express';
+const router = Router();
 
 // Importar el controlador de usuarios
-const RolesController = require('../../controllers/role.controller');
+import RolesController from '../../controllers/role.controller';
 
 // Importar el middleware de autorización
-const AccessControl = require('../../middlewares/access.middleware');
+import AccessControl from '../../middlewares/access.middleware';
+
 
 // GET request para obtener la lista de todos los usuarios
 router.get('/', AccessControl.authorizeRoles('ADMIN'), RolesController.getAllRoles);
@@ -22,4 +23,4 @@ router.delete('/:id', AccessControl.authorizeRoles('ADMIN'), RolesController.del
 // POST request para crear un nuevo usuario
 router.post('/', RolesController.createRole);
 
-module.exports = router;
+export default router;

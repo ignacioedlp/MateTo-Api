@@ -1,4 +1,4 @@
-const { PrismaClient } = require('@prisma/client');
+import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 const ProductCategoryService = {
@@ -30,4 +30,4 @@ const ProductCategoryService = {
   }
 };
 
-module.exports = ProductCategoryService;
+export default ProductCategoryService;

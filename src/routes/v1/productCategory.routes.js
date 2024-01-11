@@ -1,11 +1,12 @@
-const express = require('express');
-const router = express.Router();
+import { Router } from 'express';
+const router = Router();
 
 // Importar el controlador de usuarios
-const ProductCategoriesController = require('../../controllers/productCategory.controller');
+import ProductCategoriesController from '../../controllers/productCategory.controller';
 
 // Importar el middleware de autorización
-const AccessControl = require('../../middlewares/access.middleware');
+import AccessControl from '../../middlewares/access.middleware';
+
 
 // GET request para obtener la lista de todos los usuarios
 router.get('/', AccessControl.authorizeRoles('ADMIN'), ProductCategoriesController.getAllProductCategories);
@@ -22,4 +23,4 @@ router.delete('/:id', AccessControl.authorizeRoles('ADMIN'), ProductCategoriesCo
 // POST request para crear un nuevo usuario
 router.post('/', ProductCategoriesController.createProductCategory);
 
-module.exports = router;
+export default router;

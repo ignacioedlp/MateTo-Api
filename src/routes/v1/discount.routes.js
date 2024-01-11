@@ -1,12 +1,7 @@
-const express = require('express');
-const router = express.Router();
-
-
-// Importar el controlador de usuarios
-const DiscountController = require('../../controllers/discount.controller');
-
-// Importar el middleware de autorización
-const AccessControl = require('../../middlewares/access.middleware');
+import { Router } from 'express';
+import DiscountController from '../../controllers/discount.controller';
+import AccessControl from '../../middlewares/access.middleware';
+const router = Router();
 
 // Get all discounts
 router.get('/', AccessControl.authorizeRoles('ADMIN'), DiscountController.getAllDiscounts);
@@ -30,4 +25,4 @@ router.put('/:id', AccessControl.authorizeRoles('ADMIN', 'VENDOR'), DiscountCont
 router.delete('/:id', AccessControl.authorizeRoles('ADMIN', 'VENDOR'), DiscountController.deleteDiscount);
 
 
-module.exports = router;
+export default router;

@@ -1,4 +1,4 @@
-const { PrismaClient } = require('@prisma/client');
+import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 // model Purchase {
@@ -97,6 +97,13 @@ const PurchaseService = {
     }
   },
 
+  async updatePurchase(id, purchaseData) {
+    return await prisma.purchase.update({
+      where: { id: Number(id) },
+      data: purchaseData
+    });
+  },
+
 };
 
-module.exports = PurchaseService;
+export default PurchaseService;

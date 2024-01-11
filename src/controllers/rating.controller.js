@@ -1,6 +1,6 @@
-const RatingService = require('../services/ratingServices');
-const jwt = require('jsonwebtoken');
-const logger = require('../config/logger');
+import RatingService from '../services/ratingServices';
+import jwt from 'jsonwebtoken';
+import logger from '../config/logger';
 
 const RatingController = {
   async createRating(req, res) {
@@ -46,4 +46,4 @@ const RatingController = {
   },
 };
 
-module.exports = RatingController;
+export default RatingController;

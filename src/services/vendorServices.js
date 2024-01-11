@@ -1,4 +1,4 @@
-const { PrismaClient } = require('@prisma/client');
+import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 const VendorService = {
@@ -42,4 +42,4 @@ const VendorService = {
   },
 };
 
-module.exports = VendorService;
+export default VendorService;

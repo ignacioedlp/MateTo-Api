@@ -1,5 +1,5 @@
-const { createClient } = require('@supabase/supabase-js');
-const moment = require('moment');
+import { createClient } from '@supabase/supabase-js';
+import moment from 'moment';
 
 const SupabaseService = {
   async uploadImagesProduct(images, userID) {
@@ -61,4 +61,4 @@ const SupabaseService = {
   }
 }
 
-module.exports = SupabaseService;
+export default SupabaseService;

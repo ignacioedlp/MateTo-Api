@@ -1,5 +1,5 @@
-const RoleService = require('../services/roleServices');
-const logger = require('../config/logger');
+import RoleService from '../services/roleServices';
+import logger from '../config/logger';
 
 const RolesController = {
   getAllRoles: async (req, res, next) => {
@@ -53,4 +53,4 @@ const RolesController = {
   }
 };
 
-module.exports = RolesController;
+export default RolesController;

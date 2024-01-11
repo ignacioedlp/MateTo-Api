@@ -1,7 +1,8 @@
-const PurchaseService = require('../services/purchaseServices');
-const jwt = require('jsonwebtoken');
-const httpStatus = require('http-status');
-const logger = require('../config/logger');
+import PurchaseService from '../services/purchaseServices';
+import jwt from 'jsonwebtoken';
+import logger from '../config/logger';
+import { MercadoPagoConfig, Preference } from 'mercadopago';
+
 
 const PurchasesController = {
   getAllPurchases: async (req, res, next) => {
@@ -79,7 +80,24 @@ const PurchasesController = {
 
       const createdPurchase = await PurchaseService.createPurchase(newPurchase);
 
-      res.status(httpStatus.CREATED).json(createdPurchase);
+      const items = [{
+        id: createdPurchase.id,
+        title: `${req.body.purchaseItems.map(item => item.title).join(', ')} (${createdPurchase.id})`,
+        unit_price: req.body.purchaseItems.reduce((acc, item) => acc + item.price * item.quantity, 0),
+        quantity: 1
+      }]
+
+      const client = new MercadoPagoConfig({ accessToken: process.env.MERCADO_PAGO_KEY });
+
+      const preference = await new Preference(client).create({
+        body: {
+          items: items,
+        }
+      })
+
+      await PurchaseService.updatePurchase(createdPurchase.id, { status: 'COMPLETED' });
+
+      res.status(201).json({ createdPurchase, preference });
     } catch (err) {
       logger.error(err);
       next(err);
@@ -87,4 +105,4 @@ const PurchasesController = {
   }
 }
 
-module.exports = PurchasesController;
+export default PurchasesController;

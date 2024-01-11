@@ -1,11 +1,7 @@
-const express = require('express');
-const router = express.Router();
-
-// Importar el controlador de colors
-const ColorsController = require('../../controllers/color.controller');
-
-// Importar el middleware de autorización
-const AccessControl = require('../../middlewares/access.middleware');
+import { Router } from 'express';
+import ColorsController from '../../controllers/color.controller';
+import AccessControl from '../../middlewares/access.middleware';
+const router = Router();
 
 // GET request para obtener la lista de todos los usuarios
 router.get('/', AccessControl.authorizeRoles('ADMIN'), ColorsController.getAllColors);
@@ -22,4 +18,4 @@ router.delete('/:id', AccessControl.authorizeRoles('ADMIN'), ColorsController.de
 // POST request para crear un nuevo usuario
 router.post('/', ColorsController.createColor);
 
-module.exports = router;
+export default router;

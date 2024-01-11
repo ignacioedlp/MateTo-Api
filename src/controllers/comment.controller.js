@@ -1,6 +1,6 @@
-const CommentService = require('../services/commentServices');
-const jwt = require('jsonwebtoken');
-const logger = require('../config/logger');
+import CommentService from '../services/commentServices';
+import jwt from 'jsonwebtoken';
+import logger from '../config/logger';
 
 const CommentController = {
 
@@ -55,4 +55,4 @@ const CommentController = {
 
 };
 
-module.exports = CommentController;
+export default CommentController;

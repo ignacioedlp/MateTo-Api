@@ -1,6 +1,6 @@
-const jwt = require('jsonwebtoken');
-const ProductService = require('../services/productServices');
-const PurchaseService = require('../services/purchaseServices');
+import jwt from 'jsonwebtoken';
+import ProductService from '../services/productServices';
+import PurchaseService from '../services/purchaseServices';
 
 const AccessControl = {
   checkIfIsTheSameVendorOrAdminProduct: () => async (req, res, next) => {
@@ -116,4 +116,4 @@ const AccessControl = {
 
 }
 
-module.exports = AccessControl;
+export default AccessControl;

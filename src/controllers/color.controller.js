@@ -1,5 +1,5 @@
-const ColorService = require('../services/colorServices');
-const logger = require('../config/logger');
+import ColorService from '../services/colorServices'
+import logger from '../config/logger';
 
 const ColorsController = {
   getAllColors: async (req, res, next) => {
@@ -53,4 +53,4 @@ const ColorsController = {
   }
 };
 
-module.exports = ColorsController;
+export default ColorsController;

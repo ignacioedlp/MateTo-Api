@@ -1,6 +1,6 @@
-const FavoriteService = require('../services/favoriteServices');
-const jwt = require('jsonwebtoken');
-const logger = require('../config/logger');
+import FavoriteService from '../services/favoriteServices';
+import jwt from 'jsonwebtoken';
+import logger from '../config/logger';
 
 const FavoriteController = {
 
@@ -76,4 +76,4 @@ const FavoriteController = {
   }
 };
 
-module.exports = FavoriteController;
+export default FavoriteController;
