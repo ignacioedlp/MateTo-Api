@@ -2,43 +2,49 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 const ProductService = {
-  async getAllProducts({ priceMin, priceMax, stock, category, colors, sizes, type, vendor, recent, popular, limit, published }) {
-    return await prisma.product.findMany({
-      where: {
-        ...(recent && { createdAt: { gte: new Date(Date.now() - 24 * 60 * 60 * 1000) } }),
-        ...(vendor && { authorId: Number(vendor) }),
-        ...(priceMin && priceMax && {
-          price: {
-            gte: parseFloat(priceMin),
-            lte: parseFloat(priceMax)
-          }
-        }),
-        ...(stock && { stock: parseInt(stock) }),
-        ...(category && { categoryId: Number(category) }),
-        ...(colors && {
-          colors: {
-            some: {
-              id: {
-                in: colors.map(color => Number(color))
-              }
+  async getAllProducts({ priceMin, priceMax, stock, category, colors, sizes, type, vendor, recent, popular, published, page, pageSize }) {
+    // Calcular skip y take para la paginación
+    const skip = page > 0 ? (page - 1) * pageSize : 0;
+    const take = pageSize ? parseInt(pageSize) : 10; // Default a 10 si pageSize no está definido
 
+    const conditions = {
+      ...(recent && { createdAt: { gte: new Date(Date.now() - 24 * 60 * 60 * 1000) } }),
+      ...(vendor && { authorId: Number(vendor) }),
+      ...(priceMin && priceMax && {
+        price: {
+          gte: parseFloat(priceMin),
+          lte: parseFloat(priceMax)
+        }
+      }),
+      ...(stock && { stock: parseInt(stock) }),
+      ...(category && { categoryId: Number(category) }),
+      ...(colors && {
+        colors: {
+          some: {
+            id: {
+              in: colors.map(color => Number(color))
             }
-          }
-        }),
-        ...(sizes && {
-          sizes: {
-            some: {
-              id: {
-                in: sizes.map(size => Number(size))
-              }
 
-            }
           }
-        }),
-        ...(type && { typeId: Number(type) }),
-        ...(published && { published: published }),
-        ...(popular && { purchaseItems: { some: { quantity: { gt: 10 } } } })
-      },
+        }
+      }),
+      ...(sizes && {
+        sizes: {
+          some: {
+            id: {
+              in: sizes.map(size => Number(size))
+            }
+
+          }
+        }
+      }),
+      ...(type && { typeId: Number(type) }),
+      ...(published && { published: published }),
+      ...(popular && { purchaseItems: { some: { quantity: { gt: 10 } } } })
+    };
+
+    const products = await prisma.product.findMany({
+      where: conditions,
       include: {
         author: {
           select: {
@@ -50,8 +56,20 @@ const ProductService = {
       orderBy: {
         createdAt: 'desc'
       },
-      take: limit ? parseInt(limit) : undefined
+      skip, // Agregar skip para la paginación
+      take // Agregar take para la paginación
     });
+
+    // Contar el total de productos que cumplen las condiciones
+    const totalItems = await prisma.product.count({
+      where: conditions
+    });
+
+
+    const totalPages = Math.ceil(totalItems / pageSize);
+
+    // Devolver los productos y el total de elementos
+    return { products, totalPages };
   },
 
   async getProductById(id) {

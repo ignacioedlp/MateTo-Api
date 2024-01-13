@@ -27,18 +27,24 @@ const ProfileController = {
 
       let imageProfile = null;
 
-      if (req.files || req.files.image) {
+      if (req.files || req.files?.image) {
         // Tomo las images del body y las subo a supabase
         const image = req.files.image;
 
         imageProfile = await SupabaseService.uploadImageProfile(image, decoded.userId);
       }
 
-      const user = await ProfileService.updateProfile(decoded.userId, {
-        ...req.body,
-        imageProfile,
-      });
-      res.status(200).json(user);
+      if (imageProfile) {
+        const user = await ProfileService.updateProfile(decoded.userId, {
+          ...req.body,
+          imageProfile,
+        });
+        res.status(200).json(user);
+      } else {
+        const user = await ProfileService.updateProfile(decoded.userId, req.body);
+        res.status(200).json(user);
+      }
+
     } catch (err) {
       logger.error(err);
       next(err);

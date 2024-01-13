@@ -14,11 +14,11 @@ router.get('/', AccessControl.authorizeRoles('ADMIN'), PurchasesController.getAl
 
 router.get('/vendor/:id', AccessControl.authorizeRoles('ADMIN', 'VENDOR'), PurchasesController.getAllProductsPurchasesOfOneVendor);
 
-router.get('/user/:id', PurchasesController.getAllPurchasesOfOneUser);
+router.get('/user', PurchasesController.getAllPurchasesOfOneUser);
 
 router.get('/:id', AccessControl.checkIfIsAuthorOrUserPurchase, PurchasesController.getPurchaseById);
 
 router.post('/', PurchasesController.createPurchase);
 
-export default  router;
+export default router;
 

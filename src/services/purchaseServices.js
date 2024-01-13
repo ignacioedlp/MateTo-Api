@@ -56,6 +56,13 @@ const PurchaseService = {
   async getAllPurchasesOfOneUser(id) {
     return await prisma.purchase.findMany({
       where: { userId: Number(id) },
+      include: {
+        purchaseItems: {
+          include: {
+            product: true
+          }
+        }
+      },
       orderBy: {
         createdAt: 'desc'
       }

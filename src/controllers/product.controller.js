@@ -8,8 +8,12 @@ import logger from '../config/logger';
 const ProductsController = {
   getAllProducts: async (req, res, next) => {
     try {
-      const products = await ProductService.getAllProducts(req.query);
-      res.status(200).json(products);
+      const response = await ProductService.getAllProducts(req.query);
+
+      console.log(response);
+
+
+      res.status(200).json(response);
     } catch (err) {
       logger.error(err);
       next(err);
@@ -57,6 +61,8 @@ const ProductsController = {
       }
 
       const createdProduct = await ProductService.createProduct(newProduct);
+
+
       res.status(httpStatus.CREATED).json(createdProduct);
     } catch (err) {
       logger.error(err);

@@ -52,7 +52,7 @@ app.use('/api/v1/products', routes.product);
 app.use('/api/v1/users', routes.user);
 app.use('/api/v1/productCategories', routes.productCategory);
 app.use('/api/v1/productTypes', routes.productType);
-app.use('/api/v1/profiles', routes.profile);
+app.use('/api/v1/profile', routes.profile);
 app.use('/api/v1/purchases', routes.purchases);
 app.use('/api/v1/roles', routes.role);
 app.use('/api/v1/ratings', routes.rating);
