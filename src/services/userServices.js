@@ -3,7 +3,31 @@ const prisma = new PrismaClient();
 
 const UserService = {
   async getAllUsers() {
-    return await prisma.user.findMany();
+
+    const roleUser = await prisma.role.findUnique({
+      where: { name: 'USER' }
+    });
+
+
+    return await prisma.user.findMany(
+      {
+        select: {
+          id: true,
+          username: true,
+          email: true,
+          imageProfile: true,
+          createdAt: true,
+          purchases: {
+            select: {
+              id: true,
+            }
+          }
+        },
+        where: {
+          roleId: roleUser.id
+        },
+      }
+    );
   },
 
   async getUserById(id) {

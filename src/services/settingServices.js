@@ -10,7 +10,8 @@ const SettingService = {
           select: {
             id: true,
             name: true,
-            hex: true
+            hex: true,
+            enabled: true
           },
           where: {
             enabled: true,
@@ -24,7 +25,8 @@ const SettingService = {
         {
           select: {
             id: true,
-            name: true
+            name: true,
+            enabled: true
           },
           where: {
             enabled: true,
@@ -38,7 +40,8 @@ const SettingService = {
         {
           select: {
             id: true,
-            name: true
+            name: true,
+            enabled: true
           },
           where: {
             enabled: true,
@@ -52,7 +55,8 @@ const SettingService = {
         {
           select: {
             id: true,
-            name: true
+            name: true,
+            enabled: true
           },
           where: {
             enabled: true,

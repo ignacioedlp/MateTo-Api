@@ -59,6 +59,8 @@ app.use('/api/v1/ratings', routes.rating);
 app.use('/api/v1/vendors', routes.vendor);
 app.use('/api/v1/sizes', routes.size);
 app.use('/api/v1/users', routes.user);
+app.use('/api/v1/orders', routes.order);
+app.use('/api/v1/analytics', routes.analytic);
 
 app.use('/webhooks/payments', webhooks.payments);
 

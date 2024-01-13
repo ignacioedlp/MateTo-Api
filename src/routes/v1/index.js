@@ -16,7 +16,8 @@ import role from './role.routes';
 import rating from './rating.routes';
 import vendor from './vendor.routes';
 import size from './size.routes';
-import order from 'order.routes';
+import order from './order.routes';
+import analytic from './analytic.routes';
 
 export default {
   health,
@@ -37,4 +38,6 @@ export default {
   rating,
   vendor,
   size,
+  order,
+  analytic,
 };

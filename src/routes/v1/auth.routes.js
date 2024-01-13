@@ -8,6 +8,7 @@ const router = Router();
 
 router.post('/signup', async (req, res) => {
   try {
+    console.log(req.body);
     const user = await AuthService.register(req.body);
     res.status(201).json(user);
   } catch (error) {
@@ -18,6 +19,7 @@ router.post('/signup', async (req, res) => {
 
 router.post('/signin', async (req, res) => {
   try {
+    console.log(req.body);
     const data = await AuthService.login(req.body.email, req.body.password);
     res.json(data);
   } catch (error) {

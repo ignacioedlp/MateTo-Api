@@ -14,6 +14,7 @@ const VendorService = {
         username: true,
         email: true,
         imageProfile: true,
+        createdAt: true,
       },
       where: {
         roleId: roleVendor.id
