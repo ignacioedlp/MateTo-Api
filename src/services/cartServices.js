@@ -25,29 +25,22 @@ const CartService = {
   },
 
   async addToCart(cartData) {
-    const item = prisma.cartItem.findUnique({
+    return prisma.cartItem.upsert({
       where: {
         userId_productId: {
           userId: cartData.userId,
           productId: cartData.productId,
         },
       },
+      update: {
+        quantity: cartData.quantity,
+      },
+      create: {
+        quantity: cartData.quantity,
+        userId: cartData.userId,
+        productId: cartData.productId,
+      },
     });
-
-    if (item) {
-      return prisma.cartItem.update({
-        where: {
-          userId_productId: {
-            userId: cartData.userId,
-            productId: cartData.productId,
-          },
-        },
-        data: {
-          quantity: cartData.quantity,
-        },
-      });
-    }
-    return prisma.cartItem.create({ data: cartData });
   },
 
   async removeFromCart(cartData) {
