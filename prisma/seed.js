@@ -1,6 +1,11 @@
 const { PrismaClient } = require('@prisma/client');
+
 const prisma = new PrismaClient();
 
+/**
+ * Executes the main function to seed the database with initial data.
+ * @return {Promise<void>} A promise that resolves when the seeding is complete.
+ */
 async function main() {
   // Restore
   await prisma.color.deleteMany();
@@ -11,50 +16,52 @@ async function main() {
 
   // Roles
   const roles = ['USER', 'ADMIN', 'VENDOR'];
-  for (const name of roles) {
-    await prisma.role.create({ data: { name } });
-  }
+  roles.forEach(async (role) => {
+    await prisma.role.create({ data: { name: role } });
+  });
 
   // ProductTypes
   const productTypes = ['MATE', 'YERBERO', 'MATERA', 'BOMBILLA', 'TERMOS'];
-  for (const name of productTypes) {
-    await prisma.productType.create({ data: { name } });
-  }
+
+  productTypes.forEach(async (type) => {
+    await prisma.productType.create({ data: { name: type } });
+  });
 
   // ProductCategories
   const productCategories = ['CAMIONERO', 'TORPEDO', 'IMPERIAL', 'METALICOS', 'PLASTICOS'];
-  for (const name of productCategories) {
-    await prisma.productCategory.create({ data: { name } });
-  }
+
+  productCategories.forEach(async (category) => {
+    await prisma.productCategory.create({ data: { name: category } });
+  });
 
   // Colors
   const colorData = [
-    { name: 'PURPLE', hex: '#9F7AEA' },       // Tailwind Purple 400
-    { name: 'BLACK', hex: '#4A4A4A' },        // Un gris oscuro en lugar de negro puro
-    { name: 'WHITE', hex: '#F7FAFC' },        // Un blanco suave
-    { name: 'BLUE', hex: '#63B3ED' },         // Tailwind Blue 400
-    { name: 'YELLOW', hex: '#F6E05E' },       // Tailwind Yellow 400
-    { name: 'DARK_BROWN', hex: '#A08770' },   // Un marrón medio
-    { name: 'LIGHT_BROWN', hex: '#CABAA6' },  // Un marrón claro
-    { name: 'GRAY', hex: '#A0AEC0' },         // Tailwind Gray 400
-    { name: 'PINK', hex: '#F687B3' },         // Tailwind Pink 400
-    { name: 'TURQUOISE', hex: '#4FD1C5' }     // Tailwind Teal 400
+    { name: 'PURPLE', hex: '#9F7AEA' },
+    { name: 'BLACK', hex: '#4A4A4A' },
+    { name: 'WHITE', hex: '#F7FAFC' },
+    { name: 'BLUE', hex: '#63B3ED' },
+    { name: 'YELLOW', hex: '#F6E05E' },
+    { name: 'DARK_BROWN', hex: '#A08770' },
+    { name: 'LIGHT_BROWN', hex: '#CABAA6' },
+    { name: 'GRAY', hex: '#A0AEC0' },
+    { name: 'PINK', hex: '#F687B3' },
+    { name: 'TURQUOISE', hex: '#4FD1C5' },
   ];
 
-  for (const { name, hex } of colorData) {
-    await prisma.color.create({ data: { name, hex } });
-  }
+  colorData.forEach(async ({ name }) => {
+    await prisma.color.create({ data: { name } });
+  });
 
   // Sizes
   const sizes = ['S', 'M', 'L', 'XXL'];
-  for (const name of sizes) {
-    await prisma.size.create({ data: { name } });
-  }
+
+  sizes.forEach(async (size) => {
+    await prisma.size.create({ data: { name: size } });
+  });
 }
 
 main()
-  .catch((e) => {
-    console.error(e);
+  .catch(() => {
     process.exit(1);
   })
   .finally(async () => {

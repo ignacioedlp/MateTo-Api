@@ -3,12 +3,11 @@ import { Router } from 'express';
 import AuthService from '../../services/authServices';
 import UserService from '../../services/userServices';
 import logger from '../../config/logger';
-const router = Router();
 
+const router = Router();
 
 router.post('/signup', async (req, res) => {
   try {
-    console.log(req.body);
     const user = await AuthService.register(req.body);
     res.status(201).json(user);
   } catch (error) {
@@ -19,7 +18,6 @@ router.post('/signup', async (req, res) => {
 
 router.post('/signin', async (req, res) => {
   try {
-    console.log(req.body);
     const data = await AuthService.login(req.body.email, req.body.password);
     res.json(data);
   } catch (error) {
@@ -60,11 +58,11 @@ router.post('/forgot-password', async (req, res) => {
 
     const resend = new Resend('re_AdzbXU95_BsLv1dqz8YoGfA6SDJ5EsJ9N');
 
-    const { data, error } = await resend.emails.send({
+    const { error } = await resend.emails.send({
       from: 'MateTo <support@resend.dev>',
       to: [email],
       subject: 'Forgot Password',
-      html: `<p>Click <a href="${link}">here</a> to reset your password</p>`
+      html: `<p>Click <a href="${link}">here</a> to reset your password</p>`,
     });
 
     if (error) {

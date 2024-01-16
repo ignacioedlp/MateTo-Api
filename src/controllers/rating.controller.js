@@ -1,5 +1,5 @@
-import RatingService from '../services/ratingServices';
 import jwt from 'jsonwebtoken';
+import RatingService from '../services/ratingServices';
 import logger from '../config/logger';
 
 const RatingController = {
@@ -12,7 +12,7 @@ const RatingController = {
       const ratingData = {
         authorId: decoded.userId,
         productId,
-        value
+        value,
       };
       const newRating = await RatingService.createRating(ratingData);
       res.status(201).json(newRating);

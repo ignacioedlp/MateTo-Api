@@ -1,6 +1,10 @@
-import ProductCategoryService from '../services/productCategoryServices';
-import logger from '../config/logger';
+import ProductCategoryService from '../../services/productCategoryServices';
+import logger from '../../config/logger';
 
+/**
+ * Controller for managing product categories.
+ * @namespace ProductCategorysController
+ */
 const ProductCategorysController = {
   getAllProductCategories: async (req, res, next) => {
     try {
@@ -34,7 +38,8 @@ const ProductCategorysController = {
 
   updateProductCategory: async (req, res, next) => {
     try {
-      const updatedProductCategory = await ProductCategoryService.updateProductCategory(req.params.id, req.body);
+      const updatedProductCategory = await ProductCategoryService
+        .updateProductCategory(req.params.id, req.body);
       res.status(200).json(updatedProductCategory);
     } catch (err) {
       logger.error(err);
@@ -44,13 +49,14 @@ const ProductCategorysController = {
 
   deleteProductCategory: async (req, res, next) => {
     try {
-      const deletedProductCategory = await ProductCategoryService.deleteProductCategory(req.params.id);
+      const deletedProductCategory = await ProductCategoryService
+        .deleteProductCategory(req.params.id);
       res.status(200).json(deletedProductCategory);
     } catch (err) {
       logger.error(err);
       next(err);
     }
-  }
+  },
 };
 
 export default ProductCategorysController;

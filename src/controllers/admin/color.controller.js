@@ -1,6 +1,10 @@
-import ColorService from '../services/colorServices'
-import logger from '../config/logger';
+import ColorService from '../../services/colorServices';
+import logger from '../../config/logger';
 
+/**
+ * Controller for managing colors.
+ * @namespace ColorsController
+ */
 const ColorsController = {
   getAllColors: async (req, res, next) => {
     try {
@@ -50,7 +54,7 @@ const ColorsController = {
       logger.error(err);
       next(err);
     }
-  }
+  },
 };
 
 export default ColorsController;

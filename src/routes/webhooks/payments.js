@@ -1,15 +1,17 @@
 import { Router } from 'express';
 import { MercadoPagoConfig, Payment } from 'mercadopago';
 import PaymentsService from '../../services/paymentServices';
+import logger from '../../config/logger';
+import PurchaseService from '../../services/purchaseServices';
 
 const router = Router();
 
-router.post("/", async (req, res) => {
+router.post('/', async (req, res) => {
   try {
-    const secret_header = req.headers["x-signature-id"];
+    const secretHeader = req.headers['x-signature-id'] || process.env.MERCADO_PAGO_WEBHOOKS;
 
-    if (!process.env.MERCADO_PAGO_WEBHOOKS) {
-      return res.status(400).json({ message: "Invalid request" });
+    if (!secretHeader) {
+      return res.status(400).json({ message: 'Invalid request' });
     }
 
     const client = new MercadoPagoConfig({ accessToken: process.env.MERCADO_PAGO_KEY });
@@ -22,14 +24,17 @@ router.post("/", async (req, res) => {
       id: payment.id,
       amount: payment.transaction_amount,
       description: payment.description,
-    }
+      purchaseId: parseInt(payment.external_reference, 10),
+    };
 
     const paymentCreated = await PaymentsService.createPayment(paymentToAdd);
 
-    res.json({ message: "Ok" }).status(200);
+    await PurchaseService.updatePurchase(parseInt(payment.external_reference, 10), { status: 'COMPLETED', paymentId: paymentCreated.id });
+
+    return res.json({ message: 'Ok' }).status(200);
   } catch (err) {
-    console.log(err);
-    res.json({ message: "Status Error" }).status(500);
+    logger.error(err);
+    return res.json({ message: 'Status Error' }).status(500);
   }
 });
 

@@ -1,6 +1,10 @@
-import SizeService from '../services/sizeServices';
-import logger from '../config/logger';
+import SizeService from '../../services/sizeServices';
+import logger from '../../config/logger';
 
+/**
+ * Controller for managing sizes.
+ * @namespace SizesController
+ */
 const SizesController = {
   getAllSizes: async (req, res, next) => {
     try {
@@ -50,7 +54,7 @@ const SizesController = {
       logger.error(err);
       next(err);
     }
-  }
+  },
 };
 
 export default SizesController;

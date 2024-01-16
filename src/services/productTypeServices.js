@@ -1,33 +1,34 @@
 import { PrismaClient } from '@prisma/client';
+
 const prisma = new PrismaClient();
 
 const ProductTypeService = {
   async getAllProductTypes() {
-    return await prisma.productType.findMany();
+    return prisma.productType.findMany();
   },
 
   async getProductTypeById(id) {
-    return await prisma.productType.findUnique({
-      where: { id: Number(id) }
+    return prisma.productType.findUnique({
+      where: { id: Number(id) },
     });
   },
 
   async createProductType(productTypeData) {
-    return await prisma.productType.create({ data: productTypeData });
+    return prisma.productType.create({ data: productTypeData });
   },
 
   async updateProductType(id, productTypeData) {
-    return await prisma.productType.update({
+    return prisma.productType.update({
       where: { id: Number(id) },
-      data: productTypeData
+      data: productTypeData,
     });
   },
 
   async deleteProductType(id) {
-    return await prisma.productType.delete({
-      where: { id: Number(id) }
+    return prisma.productType.delete({
+      where: { id: Number(id) },
     });
-  }
+  },
 };
 
 export default ProductTypeService;

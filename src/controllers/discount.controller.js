@@ -1,7 +1,10 @@
-import DiscountService from '../services/discountServices'
 import jwt from 'jsonwebtoken';
+import DiscountService from '../services/discountServices';
 import logger from '../config/logger';
 
+/**
+ * DiscountController handles the HTTP requests related to discounts.
+ */
 const DiscountController = {
 
   getAllDiscounts: async (req, res, next) => {

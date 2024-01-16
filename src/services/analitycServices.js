@@ -1,93 +1,123 @@
 import { PrismaClient } from '@prisma/client';
+
 const prisma = new PrismaClient();
-
-// model Purchase {
-//   id            Int            @id @default(autoincrement())
-//   createdAt     DateTime       @default(now())
-//   userId        Int
-//   user          User           @relation(fields: [userId], references: [id])
-//   purchaseItems PurchaseItem[]
-//   totalDiscount Float
-//   addressLine   String
-//   city          String
-//   state         String
-//   postalCode    String
-//   phoneNumber   String
-//   status        StatusPurchase @default(PENDING)
-// }
-
-// model PurchaseItem {
-//   id         Int      @id @default(autoincrement())
-//   purchaseId Int
-//   productId  Int
-//   quantity   Int
-//   purchase   Purchase @relation(fields: [purchaseId], references: [id])
-//   product    Product  @relation(fields: [productId], references: [id])
-// }
-
-// model Product {
-//   id            Int               @id @default(autoincrement())
-//   createdAt     DateTime          @default(now())
-//   updatedAt     DateTime          @updatedAt
-//   published     Boolean           @default(false)
-//   title         String            @db.VarChar(255)
-//   description   String            @db.VarChar(255)
-//   price         Float
-//   stock         Int
-//   author        User?             @relation(fields: [authorId], references: [id])
-//   authorId      Int?
-//   cartItems     CartItem[]
-//   favorites     FavoriteProduct[]
-//   discounts     AppliedDiscount[]
-//   comments      Comment[]
-//   ratings       Rating[]
-//   imageUrls     String[]
-//   purchaseItems PurchaseItem[]
-//   typeId        Int
-//   categoryId    Int
-//   type          ProductType       @relation(fields: [typeId], references: [id])
-//   category      ProductCategory   @relation(fields: [categoryId], references: [id])
-//   colors        Color[]           @relation("ProductColors")
-//   sizes         Size[]            @relation("ProductSizes")
-// }
-
 
 const AnalyticService = {
 
   async getTotalItemsSales(vendor) {
-    const totalItems = await prisma.purchaseItem.count({
+    const today = new Date();
+    const sevenDaysAgo = new Date(today);
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+
+    const purchases = await prisma.purchase.findMany({
       where: {
-        product: {
-          authorId: vendor
-        }
-      }
-    })
-
-    return totalItems;
-  },
-
-  async getTotalUsersReached(vendor) {
-    return 0;
-  },
-
-  async getTotalSales(vendor) {
-    const totalSalesByProduct = await prisma.purchaseItem.groupBy({
-      by: ['productId'],
-      _sum: {
-        quantity: true,
+        createdAt: {
+          gte: sevenDaysAgo,
+          lte: today,
+        },
+        purchaseItems: {
+          some: {
+            product: {
+              authorId: Number(vendor),
+            },
+          },
+        },
       },
-      where: {
-        product: {
-          authorId: vendor
-        }
+      include: {
+        purchaseItems: {
+          include: {
+            product: true,
+          },
+        },
       },
-      _take: 10, // Puedes ajustar este número para obtener más resultados
+      orderBy: {
+        createdAt: 'asc',
+      },
     });
-    
 
-    return totalSalesByProduct;
+    const totalsByDay = {};
+
+    purchases.forEach((purchase) => {
+      const date = purchase.createdAt.toISOString().split('T')[0];
+      const total = purchase.purchaseItems.reduce((acc, item) => acc + item.product.price, 0);
+      const quantity = purchase.purchaseItems.length;
+
+      if (totalsByDay[date]) {
+        totalsByDay[date].total += total;
+        totalsByDay[date].quantity += quantity;
+      } else {
+        totalsByDay[date] = { day: date, total, quantity };
+      }
+    });
+
+    for (let i = 0; i < 7; i += 1) {
+      const date = new Date(today);
+      date.setDate(date.getDate() - i);
+      const dateString = date.toISOString().split('T')[0];
+      if (!totalsByDay[dateString]) {
+        totalsByDay[dateString] = { day: dateString, total: 0, quantity: 0 };
+      }
+    }
+
+    const sortedTotalsByDay = Object.values(totalsByDay).sort((a, b) => {
+      const dateA = new Date(a.day);
+      const dateB = new Date(b.day);
+      return dateA - dateB;
+    });
+
+    return sortedTotalsByDay;
   },
-}
+
+  async getTopFiveProducts(vendor) {
+    const today = new Date();
+    const sevenDaysAgo = new Date(today);
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+
+    const purchases = await prisma.purchase.findMany({
+      where: {
+        createdAt: {
+          gte: sevenDaysAgo,
+          lte: today,
+        },
+        purchaseItems: {
+          some: {
+            product: {
+              authorId: Number(vendor),
+            },
+          },
+        },
+      },
+      include: {
+        purchaseItems: {
+          include: {
+            product: true,
+          },
+        },
+      },
+      orderBy: {
+        createdAt: 'asc',
+      },
+    });
+
+    const totalsByProduct = {};
+
+    purchases.forEach((purchase) => {
+      purchase.purchaseItems.forEach((item) => {
+        const { product } = item;
+        if (totalsByProduct[product.id]) {
+          totalsByProduct[product.id].total += product.price;
+          totalsByProduct[product.id].quantity += item.quantity;
+        } else {
+          totalsByProduct[product.id] = { product, total: product.price, quantity: 1 };
+        }
+      });
+    });
+
+    const sortedTotalsByProduct = Object.values(totalsByProduct).sort((a, b) => b.total - a.total);
+
+    return sortedTotalsByProduct.slice(0, 5);
+  },
+
+};
 
 export default AnalyticService;
-

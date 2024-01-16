@@ -1,6 +1,10 @@
 import VendorService from '../services/vendorServices';
 import logger from '../config/logger';
 
+/**
+ * Controller for handling vendor-related operations.
+ * @namespace VendorsController
+ */
 const VendorsController = {
   getAllVendors: async (req, res, next) => {
     try {

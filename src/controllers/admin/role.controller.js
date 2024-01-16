@@ -1,6 +1,10 @@
-import RoleService from '../services/roleServices';
-import logger from '../config/logger';
+import RoleService from '../../services/roleServices';
+import logger from '../../config/logger';
 
+/**
+ * Controller for managing roles.
+ * @namespace RolesController
+ */
 const RolesController = {
   getAllRoles: async (req, res, next) => {
     try {
@@ -50,7 +54,7 @@ const RolesController = {
       logger.error(err);
       next(err);
     }
-  }
+  },
 };
 
 export default RolesController;

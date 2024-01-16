@@ -1,14 +1,14 @@
 import { PrismaClient } from '@prisma/client';
+
 const prisma = new PrismaClient();
 
 const VendorService = {
   async getAllVendors({ limit }) {
-
     const roleVendor = await prisma.role.findUnique({
-      where: { name: 'VENDOR' }
+      where: { name: 'VENDOR' },
     });
 
-    return await prisma.user.findMany({
+    return prisma.user.findMany({
       select: {
         id: true,
         username: true,
@@ -17,18 +17,18 @@ const VendorService = {
         createdAt: true,
       },
       where: {
-        roleId: roleVendor.id
+        roleId: roleVendor.id,
       },
-      take: limit ? Number(limit) : undefined
+      take: limit ? Number(limit) : undefined,
     });
   },
 
   async getVendorById(id) {
     const roleVendor = await prisma.role.findUnique({
-      where: { name: 'VENDOR' }
+      where: { name: 'VENDOR' },
     });
 
-    return await prisma.user.findUnique({
+    return prisma.user.findUnique({
       select: {
         id: true,
         name: true,
@@ -37,8 +37,8 @@ const VendorService = {
       },
       where: {
         id: Number(id),
-        roleId: roleVendor.id
-      }
+        roleId: roleVendor.id,
+      },
     });
   },
 };

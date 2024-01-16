@@ -1,9 +1,9 @@
 import { PrismaClient } from '@prisma/client';
+
 const prisma = new PrismaClient();
 
 const SettingService = {
   async getAllSettings() {
-
     const settings = {
       colors: await prisma.color.findMany(
         {
@@ -11,65 +11,65 @@ const SettingService = {
             id: true,
             name: true,
             hex: true,
-            enabled: true
+            enabled: true,
           },
           where: {
             enabled: true,
           },
           orderBy: {
-            name: 'asc'
-          }
-        }
+            name: 'asc',
+          },
+        },
       ),
       productCategories: await prisma.productCategory.findMany(
         {
           select: {
             id: true,
             name: true,
-            enabled: true
+            enabled: true,
           },
           where: {
             enabled: true,
           },
           orderBy: {
-            name: 'asc'
-          }
-        }
+            name: 'asc',
+          },
+        },
       ),
       productTypes: await prisma.productType.findMany(
         {
           select: {
             id: true,
             name: true,
-            enabled: true
+            enabled: true,
           },
           where: {
             enabled: true,
           },
           orderBy: {
-            name: 'asc'
-          }
-        }
+            name: 'asc',
+          },
+        },
       ),
       sizes: await prisma.size.findMany(
         {
           select: {
             id: true,
             name: true,
-            enabled: true
+            enabled: true,
           },
           where: {
             enabled: true,
           },
           orderBy: {
-            name: 'asc'
-          }
-        }
+            name: 'asc',
+          },
+        },
       ),
     };
 
     return settings;
-  }
+  },
 };
 
 export default SettingService;

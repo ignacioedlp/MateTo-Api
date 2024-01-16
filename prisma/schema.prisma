@@ -130,6 +130,17 @@ model Purchase {
   postalCode    String
   phoneNumber   String
   status        StatusPurchase @default(PENDING)
+  payment       Payment? // Optional relation to Payment
+  paymentId     Int? // This is nullable to represent an optional relationship
+}
+
+model Payment {
+  id          Int      @id @default(autoincrement())
+  amount      Float
+  description String
+  purchaseId  Int      @unique
+  purchase    Purchase @relation(fields: [purchaseId], references: [id])
+  createdAt   DateTime @default(now())
 }
 
 model PurchaseItem {
@@ -139,13 +150,6 @@ model PurchaseItem {
   quantity   Int
   purchase   Purchase @relation(fields: [purchaseId], references: [id])
   product    Product  @relation(fields: [productId], references: [id])
-}
-
-model Payment {
-  id          Int      @id @default(autoincrement())
-  amount      Float
-  description String
-  createdAt   DateTime @default(now())
 }
 
 enum StatusPurchase {

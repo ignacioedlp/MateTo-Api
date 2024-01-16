@@ -2,10 +2,10 @@ import 'dotenv/config';
 import cors from 'cors';
 import express from 'express';
 import swaggerUi from 'swagger-ui-express';
-import swaggerDocument from './config/swagger.json';
 import morgan from 'morgan';
 import helmet from 'helmet';
 import fileUpload from 'express-fileupload';
+import swaggerDocument from './config/swagger.json';
 import routes from './routes/v1';
 import webhooks from './routes/webhooks';
 import * as error from './middlewares/error.middleware';
@@ -27,9 +27,9 @@ app.use(helmet());
 
 // cors
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   next();
 });
 
@@ -62,19 +62,15 @@ app.use('/api/v1/users', routes.user);
 app.use('/api/v1/orders', routes.order);
 app.use('/api/v1/analytics', routes.analytic);
 
+//
 app.use('/webhooks/payments', webhooks.payments);
 
-app.use("/api-docs/v1", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/api-docs/v1', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-
-
-// if error is not an instanceOf APIError, convert it.
 app.use(error.converter);
 
-// catch 404 and forward to error handler
 app.use(error.notFound);
 
-// error handler, send stacktrace only during development
 app.use(error.handler);
 
 // * Start * //

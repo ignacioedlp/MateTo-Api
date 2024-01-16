@@ -1,10 +1,11 @@
 import { PrismaClient } from '@prisma/client';
+
 const prisma = new PrismaClient();
 
 const FavoriteService = {
 
   async getFavorites(id) {
-    return await prisma.user.findUnique({
+    return prisma.user.findUnique({
       where: { id: Number(id) },
       include: {
         favoriteProducts: {
@@ -14,27 +15,27 @@ const FavoriteService = {
                 id: true,
                 title: true,
                 price: true,
-                imageUrls: true
-              }
-            }
-          }
-        }
-      }
+                imageUrls: true,
+              },
+            },
+          },
+        },
+      },
     });
   },
 
   async addToFavorites(cartData) {
-    await prisma.favoriteProduct.create({ data: cartData });
+    return prisma.favoriteProduct.create({ data: cartData });
   },
 
   async removeFromFavorites(cartData) {
-    return await prisma.favoriteProduct.delete({
+    return prisma.favoriteProduct.delete({
       where: {
         userId_productId: {
           userId: cartData.userId,
-          productId: cartData.productId
-        }
-      }
+          productId: cartData.productId,
+        },
+      },
     });
   },
 

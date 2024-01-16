@@ -1,6 +1,11 @@
 import UserService from '../services/userServices';
 import logger from '../config/logger';
 
+/**
+ * Controller for handling user-related operations.
+ *
+ * @namespace UsersController
+ */
 const UsersController = {
   getAllUsers: async (req, res, next) => {
     try {
@@ -50,7 +55,7 @@ const UsersController = {
       logger.error(err);
       next(err);
     }
-  }
+  },
 };
 
 export default UsersController;

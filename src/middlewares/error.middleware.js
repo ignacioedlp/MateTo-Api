@@ -6,7 +6,7 @@ import APIError from '../config/errors/api-error';
  * Error handler. Send stacktrace only during development
  * @public
  */
-export const handler = (err, req, res, next) => {
+export const handler = (err, req, res) => {
   const response = {
     code: err.status,
     message: err.message || httpStatus[err.status],
@@ -26,7 +26,7 @@ export const handler = (err, req, res, next) => {
  * If error is not an instanceOf APIError, convert it.
  * @public
  */
-export const converter = (err, req, res, next) => {
+export const converter = (err, req, res) => {
   let convertedError = err;
 
   if (err instanceof expressValidation.ValidationError) {
@@ -51,7 +51,7 @@ export const converter = (err, req, res, next) => {
  * Catch 404 and forward to error handler
  * @public
  */
-export const notFound = (req, res, next) => {
+export const notFound = (req, res) => {
   const err = new APIError({
     message: 'Not found',
     status: httpStatus.NOT_FOUND,

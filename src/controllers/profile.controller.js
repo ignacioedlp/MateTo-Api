@@ -1,9 +1,12 @@
-
+import jwt from 'jsonwebtoken';
 import ProfileService from '../services/profileServices';
 import SupabaseService from '../services/supabaseServices';
-import jwt from 'jsonwebtoken';
 import logger from '../config/logger';
 
+/**
+ * Controller for handling profile-related operations.
+ * @namespace ProfileController
+ */
 const ProfileController = {
   getProfile: async (req, res, next) => {
     try {
@@ -29,7 +32,7 @@ const ProfileController = {
 
       if (req.files || req.files?.image) {
         // Tomo las images del body y las subo a supabase
-        const image = req.files.image;
+        const { image } = req.files;
 
         imageProfile = await SupabaseService.uploadImageProfile(image, decoded.userId);
       }
@@ -44,7 +47,6 @@ const ProfileController = {
         const user = await ProfileService.updateProfile(decoded.userId, req.body);
         res.status(200).json(user);
       }
-
     } catch (err) {
       logger.error(err);
       next(err);
