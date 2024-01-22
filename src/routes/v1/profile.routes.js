@@ -1,13 +1,10 @@
-// API /profile
-const express = require('express');
-const router = express.Router();
+import { Router } from 'express';
+import ProfileController from '../../controllers/profile.controller';
 
-// Importar el controlador de usuarios
-const ProfileController = require('../../controllers/profile.controller');
+const router = Router();
 
 router.get('/', ProfileController.getProfile);
 
 router.put('/', ProfileController.updateProfile);
 
-module.exports = router;
-
+export default router;

@@ -1,8 +1,12 @@
-const CartService = require('../services/cartServices');
-const jwt = require('jsonwebtoken');
-const logger = require('../config/logger');
+import jwt from 'jsonwebtoken';
+import CartService from '../services/cartServices';
+import logger from '../config/logger';
 
-
+/**
+ * Controller for managing the cart.
+ *
+ * @namespace CartController
+ */
 const CartController = {
 
   getCart: async (req, res, next) => {
@@ -12,7 +16,7 @@ const CartController = {
       const decoded = jwt.verify(token, process.env.SECRET);
 
       const cart = await CartService.getCart(decoded.userId);
-      res.status(200).json(cart);
+      res.status(200).json(cart.cartItems);
     } catch (err) {
       logger.error(err);
       next(err);
@@ -26,10 +30,10 @@ const CartController = {
       const decoded = jwt.verify(token, process.env.SECRET);
 
       const productToAdd = {
-        productId: parseInt(req.body.productId),
-        quantity: parseInt(req.body.quantity),
-        userId: parseInt(decoded.userId)
-      }
+        productId: parseInt(req.body.productId, 10),
+        quantity: parseInt(req.body.quantity, 10),
+        userId: parseInt(decoded.userId, 10),
+      };
 
       const cart = await CartService.addToCart(productToAdd);
       res.status(200).json(cart);
@@ -46,9 +50,9 @@ const CartController = {
       const decoded = jwt.verify(token, process.env.SECRET);
 
       const productToRemove = {
-        userId: parseInt(decoded.userId),
-        productId: parseInt(req.params.id)
-      }
+        userId: parseInt(decoded.userId, 10),
+        productId: parseInt(req.params.id, 10),
+      };
 
       const cart = await CartService.removeFromCart(productToRemove);
       res.status(200).json(cart);
@@ -56,7 +60,7 @@ const CartController = {
       logger.error(err);
       next(err);
     }
-  }
+  },
 };
 
-module.exports = CartController;
+export default CartController;

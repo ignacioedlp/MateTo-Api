@@ -1,7 +1,10 @@
-const DiscountService = require('../services/discountServices');
-const jwt = require('jsonwebtoken');
-const logger = require('../config/logger');
+import jwt from 'jsonwebtoken';
+import DiscountService from '../services/discountServices';
+import logger from '../config/logger';
 
+/**
+ * DiscountController handles the HTTP requests related to discounts.
+ */
 const DiscountController = {
 
   getAllDiscounts: async (req, res, next) => {
@@ -91,4 +94,4 @@ const DiscountController = {
 
 };
 
-module.exports = DiscountController;
+export default DiscountController;

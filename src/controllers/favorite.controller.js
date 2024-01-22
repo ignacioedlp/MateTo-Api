@@ -1,7 +1,11 @@
-const FavoriteService = require('../services/favoriteServices');
-const jwt = require('jsonwebtoken');
-const logger = require('../config/logger');
+import jwt from 'jsonwebtoken';
+import FavoriteService from '../services/favoriteServices';
+import logger from '../config/logger';
 
+/**
+ * Controller for managing favorite products.
+ * @namespace FavoriteController
+ */
 const FavoriteController = {
 
   getFavorites: async (req, res, next) => {
@@ -10,8 +14,16 @@ const FavoriteController = {
 
       const decoded = jwt.verify(token, process.env.SECRET);
 
-      const favorite = await FavoriteService.getFavorites(decoded.userId);
-      res.status(200).json(favorite);
+      const { favoriteProducts } = await FavoriteService.getFavorites(decoded.userId);
+
+      const products = favoriteProducts.map((fav) => ({
+        id: fav.product.id,
+        title: fav.product.title,
+        price: fav.product.price,
+        imageUrls: fav.product.imageUrls,
+      }));
+
+      res.status(200).json(products);
     } catch (err) {
       logger.error(err);
       next(err);
@@ -25,8 +37,8 @@ const FavoriteController = {
       const decoded = jwt.verify(token, process.env.SECRET);
 
       const productToAdd = {
-        userId: parseInt(decoded.userId),
-        productId: parseInt(req.params.id)
+        userId: parseInt(decoded.userId, 10),
+        productId: parseInt(req.params.id, 10),
       };
 
       const favorite = await FavoriteService.addToFavorites(productToAdd);
@@ -44,17 +56,27 @@ const FavoriteController = {
       const decoded = jwt.verify(token, process.env.SECRET);
 
       const productToRemove = {
-        userId: parseInt(decoded.userId),
-        productId: parseInt(req.params.id)
+        userId: parseInt(decoded.userId, 10),
+        productId: parseInt(req.params.id, 10),
       };
 
-      const favorite = await FavoriteService.removeFromFavorites(productToRemove);
-      res.status(200).json(favorite);
+      await FavoriteService.removeFromFavorites(productToRemove);
+
+      const { favoriteProducts } = await FavoriteService.getFavorites(decoded.userId);
+
+      const products = favoriteProducts.map((fav) => ({
+        id: fav.product.id,
+        title: fav.product.title,
+        price: fav.product.price,
+        imageUrls: fav.product.imageUrls,
+      }));
+
+      res.status(200).json(products);
     } catch (err) {
       logger.error(err);
       next(err);
     }
-  }
+  },
 };
 
-module.exports = FavoriteController;
+export default FavoriteController;

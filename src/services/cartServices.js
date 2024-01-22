@@ -1,11 +1,11 @@
-const { PrismaClient } = require('@prisma/client');
-const prisma = new PrismaClient();
+import { PrismaClient } from '@prisma/client';
 
+const prisma = new PrismaClient();
 
 const CartService = {
 
   async getCart(id) {
-    return await prisma.user.findUnique({
+    return prisma.user.findUnique({
       where: { id: Number(id) },
       include: {
         cartItems: {
@@ -14,54 +14,54 @@ const CartService = {
               select: {
                 id: true,
                 title: true,
-                price: true
-              }
-            }
-          }
-        }
-      }
+                price: true,
+                imageUrls: true,
+              },
+            },
+          },
+        },
+      },
     });
   },
 
   async addToCart(cartData) {
-    //Si exite el item en mi carrito, actualizo la cantidad, sino lo agrego
-    const item = await prisma.cartItem.findUnique({
+    return prisma.cartItem.upsert({
       where: {
         userId_productId: {
           userId: cartData.userId,
-          productId: cartData.productId
-        }
-      }
-    });
-
-    if (item) {
-      return await prisma.cartItem.update({
-        where: {
-          userId_productId: {
-            userId: cartData.userId,
-            productId: cartData.productId
-          }
+          productId: cartData.productId,
         },
-        data: {
-          quantity: cartData.quantity
-        }
-      });
-    } else {
-      return await prisma.cartItem.create({ data: cartData });
-    }
+      },
+      update: {
+        quantity: cartData.quantity,
+      },
+      create: {
+        quantity: cartData.quantity,
+        userId: cartData.userId,
+        productId: cartData.productId,
+      },
+    });
   },
 
   async removeFromCart(cartData) {
-    return await prisma.cartItem.delete({
+    return prisma.cartItem.delete({
       where: {
         userId_productId: {
           userId: cartData.userId,
-          productId: cartData.productId
-        }
-      }
+          productId: cartData.productId,
+        },
+      },
+    });
+  },
+
+  async emptyCart(userId) {
+    return prisma.cartItem.deleteMany({
+      where: {
+        userId,
+      },
     });
   },
 
 };
 
-module.exports = CartService;
+export default CartService;

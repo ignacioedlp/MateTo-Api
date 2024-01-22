@@ -1,10 +1,11 @@
-const { PrismaClient } = require('@prisma/client');
+import { PrismaClient } from '@prisma/client';
+
 const prisma = new PrismaClient();
 
 const CommentService = {
 
   async getAllComments() {
-    return await prisma.comment.findMany({
+    return prisma.comment.findMany({
 
       include: {
         author: {
@@ -12,21 +13,21 @@ const CommentService = {
             name: true,
             imageProfile: true,
             email: true,
-            id: true
-          }
+            id: true,
+          },
         },
         product: {
           select: {
-            id: true
-          }
-        }
-      }
+            id: true,
+          },
+        },
+      },
 
     });
   },
 
   async getCommentsOfOneProduct(id) {
-    return await prisma.comment.findMany({
+    return prisma.comment.findMany({
       where: { productId: Number(id) },
       include: {
         author: {
@@ -34,25 +35,25 @@ const CommentService = {
             name: true,
             imageProfile: true,
             email: true,
-            id: true
-          }
+            id: true,
+          },
         },
         product: {
           select: {
-            id: true
-          }
-        }
-      }
+            id: true,
+          },
+        },
+      },
     });
   },
 
   async createComment(commentData) {
-    return await prisma.comment.create({ data: commentData });
+    return prisma.comment.create({ data: commentData });
   },
 
   async deleteComment(id) {
-    return await prisma.comment.delete({ where: { id: Number(id) } });
+    return prisma.comment.delete({ where: { id: Number(id) } });
   },
 };
 
-module.exports = CommentService;
+export default CommentService;

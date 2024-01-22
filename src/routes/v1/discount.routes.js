@@ -1,33 +1,81 @@
-const express = require('express');
-const router = express.Router();
+import { Router } from 'express';
+import DiscountController from '../../controllers/discount.controller';
+import AccessControl from '../../middlewares/access.middleware';
 
+const router = Router();
 
-// Importar el controlador de usuarios
-const DiscountController = require('../../controllers/discount.controller');
-
-// Importar el middleware de autorización
-const AccessControl = require('../../middlewares/access.middleware');
-
-// Get all discounts
+/**
+ * GET /api/v1/discounts
+ * @description Get all discounts.
+ * @access Public
+ * @memberof module:routes/v1/discount.routes
+ * @name GET/api/v1/discounts
+ * @function
+ */
 router.get('/', AccessControl.authorizeRoles('ADMIN'), DiscountController.getAllDiscounts);
 
-// Get all discounts by product
+/**
+ * GET /api/v1/discounts/product/:id
+ * @description Get all discounts by product ID.
+ * @param {string} id - The ID of the product.
+ * @access Public
+ * @memberof module:routes/v1/discount.routes
+ * @name GET/api/v1/discounts/product/:id
+ * @function
+ */
 router.get('/product/:id', DiscountController.getAllDiscountsByProduct);
 
-// Get all discounts by vendor
+/**
+ * GET /api/v1/discounts/vendor
+ * @description Get all discounts by vendor.
+ * @access Public
+ * @memberof module:routes/v1/discount.routes
+ * @name GET/api/v1/discounts/vendor
+ * @function
+ */
 router.get('/vendor', AccessControl.authorizeRoles('ADMIN', 'VENDOR'), DiscountController.getDiscountsByVendor);
 
-// Get one discount by ID
+/**
+ * GET /api/v1/discounts/:id
+ * @description Get a discount by ID.
+ * @param {string} id - The ID of the discount.
+ * @access Public
+ * @memberof module:routes/v1/discount.routes
+ * @name GET/api/v1/discounts/:id
+ * @function
+ */
 router.get('/:id', DiscountController.getDiscountById);
 
-// Create Discount
+/**
+ * POST /api/v1/discounts
+ * @description Create a new discount.
+ * @access Private (requires authentication)
+ * @memberof module:routes/v1/discount.routes
+ * @name POST/api/v1/discounts
+ * @function
+ */
 router.post('/', AccessControl.authorizeRoles('ADMIN', 'VENDOR'), DiscountController.createDiscount);
 
-// Update Discount
+/**
+ * PUT /api/v1/discounts/:id
+ * @description Update a discount by ID.
+ * @param {string} id - The ID of the discount.
+ * @access Private (requires authentication)
+ * @memberof module:routes/v1/discount.routes
+ * @name PUT/api/v1/discounts/:id
+ * @function
+ */
 router.put('/:id', AccessControl.authorizeRoles('ADMIN', 'VENDOR'), DiscountController.updateDiscount);
 
-// Delete Discount
+/**
+ * DELETE /api/v1/discounts/:id
+ * @description Delete a discount by ID.
+ * @param {string} id - The ID of the discount.
+ * @access Private (requires authentication)
+ * @memberof module:routes/v1/discount.routes
+ * @name DELETE/api/v1/discounts/:id
+ * @function
+ */
 router.delete('/:id', AccessControl.authorizeRoles('ADMIN', 'VENDOR'), DiscountController.deleteDiscount);
 
-
-module.exports = router;
+export default router;

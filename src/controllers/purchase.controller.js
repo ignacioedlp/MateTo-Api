@@ -1,8 +1,15 @@
-const PurchaseService = require('../services/purchaseServices');
-const jwt = require('jsonwebtoken');
-const httpStatus = require('http-status');
-const logger = require('../config/logger');
+import jwt from 'jsonwebtoken';
+import { MercadoPagoConfig, Preference } from 'mercadopago';
+import PurchaseService from '../services/purchaseServices';
+import ProductServices from '../services/productServices';
+import logger from '../config/logger';
+import CartServices from '../services/cartServices';
 
+/**
+ * Controller for handling purchase-related operations.
+ *
+ * @namespace PurchasesController
+ */
 const PurchasesController = {
   getAllPurchases: async (req, res, next) => {
     try {
@@ -50,28 +57,28 @@ const PurchasesController = {
 
   createPurchase: async (req, res, next) => {
     try {
-      //Obtengo el token y lo decodifico para obtener el id del usuario
+      // Obtengo el token y lo decodifico para obtener el id del usuario
       const token = req.headers.authorization?.split(' ')[1];
       const decoded = jwt.verify(token, process.env.SECRET);
 
-      //Creo el objeto purchase
+      // Creo el objeto purchase
       const newPurchase = {
-        userId: parseInt(decoded.userId),
+        userId: parseInt(decoded.userId, 10),
         totalDiscount: parseFloat(req.body.totalDiscount),
         addressLine: req.body.addressLine,
         city: req.body.city,
         state: req.body.state,
         postalCode: req.body.postalCode,
-        phoneNumber: req.body.phoneNumber
-      }
+        phoneNumber: req.body.phoneNumber,
+      };
 
       // añado los items de la compra
       const purchaseItems = [];
 
-      req.body.purchaseItems.forEach(item => {
+      req.body.purchaseItems.forEach((item) => {
         purchaseItems.push({
           productId: item.productId,
-          quantity: item.quantity
+          quantity: item.quantity,
         });
       });
 
@@ -79,12 +86,37 @@ const PurchasesController = {
 
       const createdPurchase = await PurchaseService.createPurchase(newPurchase);
 
-      res.status(httpStatus.CREATED).json(createdPurchase);
+      // Update stock
+      req.body.purchaseItems.forEach(async (item) => {
+        await ProductServices.updateStock(item.productId, item.quantity);
+      });
+
+      // Reinicioar carrito
+      await CartServices.emptyCart(decoded.userId);
+
+      const items = [{
+        id: createdPurchase.id,
+        title: `${req.body.purchaseItems.map((item) => item.title).join(', ')}`,
+        unit_price: req.body.purchaseItems
+          .reduce((acc, item) => acc + item.price * item.quantity, 0),
+        quantity: 1,
+      }];
+
+      const client = new MercadoPagoConfig({ accessToken: process.env.MERCADO_PAGO_KEY });
+
+      const preference = await new Preference(client).create({
+        body: {
+          items,
+          external_reference: createdPurchase.id,
+        },
+      });
+
+      res.status(201).json({ createdPurchase, preference });
     } catch (err) {
       logger.error(err);
       next(err);
     }
-  }
-}
+  },
+};
 
-module.exports = PurchasesController;
+export default PurchasesController;

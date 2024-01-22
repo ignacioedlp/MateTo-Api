@@ -1,6 +1,6 @@
-const RatingService = require('../services/ratingServices');
-const jwt = require('jsonwebtoken');
-const logger = require('../config/logger');
+import jwt from 'jsonwebtoken';
+import RatingService from '../services/ratingServices';
+import logger from '../config/logger';
 
 const RatingController = {
   async createRating(req, res) {
@@ -12,7 +12,7 @@ const RatingController = {
       const ratingData = {
         authorId: decoded.userId,
         productId,
-        value
+        value,
       };
       const newRating = await RatingService.createRating(ratingData);
       res.status(201).json(newRating);
@@ -46,4 +46,4 @@ const RatingController = {
   },
 };
 
-module.exports = RatingController;
+export default RatingController;

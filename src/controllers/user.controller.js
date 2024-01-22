@@ -1,6 +1,11 @@
-const UserService = require('../services/userServices');
-const logger = require('../config/logger');
+import UserService from '../services/userServices';
+import logger from '../config/logger';
 
+/**
+ * Controller for handling user-related operations.
+ *
+ * @namespace UsersController
+ */
 const UsersController = {
   getAllUsers: async (req, res, next) => {
     try {
@@ -50,7 +55,7 @@ const UsersController = {
       logger.error(err);
       next(err);
     }
-  }
+  },
 };
 
-module.exports = UsersController;
+export default UsersController;

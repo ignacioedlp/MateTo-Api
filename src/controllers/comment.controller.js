@@ -1,7 +1,11 @@
-const CommentService = require('../services/commentServices');
-const jwt = require('jsonwebtoken');
-const logger = require('../config/logger');
+import jwt from 'jsonwebtoken';
+import CommentService from '../services/commentServices';
+import logger from '../config/logger';
 
+/**
+ * Controller for handling comments.
+ * @namespace CommentController
+ */
 const CommentController = {
 
   getAllComments: async (req, res, next) => {
@@ -34,6 +38,7 @@ const CommentController = {
       const comment = await CommentService.createComment({
         ...req.body,
         authorId: decoded.userId,
+        productId: parseInt(req.body.productId, 10),
       });
       res.status(200).json(comment);
     } catch (err) {
@@ -55,4 +60,4 @@ const CommentController = {
 
 };
 
-module.exports = CommentController;
+export default CommentController;
