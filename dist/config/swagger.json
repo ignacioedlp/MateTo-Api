@@ -1,0 +1,1352 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "MateTo API",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "tags": [
+    {
+      "name": "MateTo"
+    },
+    {
+      "name": "Users"
+    },
+    {
+      "name": "Products"
+    },
+    {
+      "name": "Purchases"
+    },
+    {
+      "name": "Authentication"
+    },
+    {
+      "name": "Profile"
+    },
+    {
+      "name": "Cart"
+    },
+    {
+      "name": "Favorites"
+    },
+    {
+      "name": "Ratings"
+    },
+    {
+      "name": "Comments"
+    },
+    {
+      "name": "Discounts"
+    }
+  ],
+  "paths": {
+    "/health": {
+      "get": {
+        "summary": "Check health",
+        "x-apidog-folder": "MateTo",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "MateTo"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "x-apidog-ignore-properties": [],
+                  "x-apidog-orders": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/413215/apis/api-5093885-run"
+      }
+    },
+    "/auth/signup": {
+      "post": {
+        "summary": "SignUp",
+        "x-apidog-folder": "Authentication",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Authentication"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "x-apidog-ignore-properties": [],
+                  "x-apidog-orders": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/413215/apis/api-5093886-run"
+      }
+    },
+    "/auth/signin": {
+      "post": {
+        "summary": "SignIn",
+        "x-apidog-folder": "Authentication",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Authentication"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "x-apidog-ignore-properties": [],
+                  "x-apidog-orders": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/413215/apis/api-5093923-run"
+      }
+    },
+    "/users": {
+      "get": {
+        "summary": "Get All Users",
+        "x-apidog-folder": "Users",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Users"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "x-apidog-ignore-properties": [],
+                  "x-apidog-orders": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/413215/apis/api-5093924-run"
+      }
+    },
+    "/users/1": {
+      "get": {
+        "summary": "Get User by Id",
+        "x-apidog-folder": "Users",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Users"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "x-apidog-ignore-properties": [],
+                  "x-apidog-orders": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/413215/apis/api-5093925-run"
+      },
+      "put": {
+        "summary": "Update User",
+        "x-apidog-folder": "Users",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Users"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "x-apidog-ignore-properties": [],
+                  "x-apidog-orders": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/413215/apis/api-5093926-run"
+      },
+      "delete": {
+        "summary": "Delete User",
+        "x-apidog-folder": "Users",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Users"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "x-apidog-ignore-properties": [],
+                  "x-apidog-orders": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/413215/apis/api-5093927-run"
+      }
+    },
+    "/products": {
+      "get": {
+        "summary": "Get All Products",
+        "x-apidog-folder": "Products",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Products"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "x-apidog-ignore-properties": [],
+                  "x-apidog-orders": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/413215/apis/api-5093982-run"
+      },
+      "post": {
+        "summary": "Create product",
+        "x-apidog-folder": "Products",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Products"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "example": "Mate 2"
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": "Descripcion"
+                  },
+                  "price": {
+                    "type": "number",
+                    "example": "2000"
+                  },
+                  "stock": {
+                    "type": "integer",
+                    "example": "11"
+                  },
+                  "published": {
+                    "type": "string",
+                    "example": "true"
+                  },
+                  "type": {
+                    "type": "string",
+                    "example": "MATE"
+                  },
+                  "category": {
+                    "type": "string",
+                    "example": "CAMIONERO"
+                  },
+                  "colors": {
+                    "type": "array",
+                    "example": [
+                      "BLACK"
+                    ]
+                  },
+                  "sizes": {
+                    "type": "array",
+                    "example": [
+                      "S",
+                      "M"
+                    ]
+                  },
+                  "imageUrls": {
+                    "type": "string",
+                    "example": [
+                      "file://d:\\Users\\Nacho\\Pictures\\ToxeDev_logo_for_a_development_company_called_JATECH_vector_mod_c6553e38-f6db-44cb-807b-9a9a77ee2ce7.png"
+                    ],
+                    "format": "binary"
+                  }
+                },
+                "required": [
+                  "title",
+                  "description",
+                  "price",
+                  "stock",
+                  "published",
+                  "type",
+                  "category",
+                  "colors",
+                  "sizes",
+                  "imageUrls"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "x-apidog-ignore-properties": [],
+                  "x-apidog-orders": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/413215/apis/api-5093987-run"
+      }
+    },
+    "/products/6": {
+      "get": {
+        "summary": "Get Product by Id",
+        "x-apidog-folder": "Products",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Products"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "x-apidog-ignore-properties": [],
+                  "x-apidog-orders": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/413215/apis/api-5093983-run"
+      },
+      "delete": {
+        "summary": "Delete Product",
+        "x-apidog-folder": "Products",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Products"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "x-apidog-ignore-properties": [],
+                  "x-apidog-orders": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/413215/apis/api-5093985-run"
+      }
+    },
+    "/products/1": {
+      "put": {
+        "summary": "Update Product",
+        "x-apidog-folder": "Products",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Products"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "x-apidog-ignore-properties": [],
+                  "x-apidog-orders": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/413215/apis/api-5093984-run"
+      }
+    },
+    "/products/vendor/2": {
+      "get": {
+        "summary": "Get All Products By Vendor",
+        "x-apidog-folder": "Products",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Products"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "x-apidog-ignore-properties": [],
+                  "x-apidog-orders": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/413215/apis/api-5093986-run"
+      }
+    },
+    "/profile": {
+      "get": {
+        "summary": "Get profile",
+        "x-apidog-folder": "Profile",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Profile"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "x-apidog-ignore-properties": [],
+                  "x-apidog-orders": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/413215/apis/api-5095687-run"
+      },
+      "put": {
+        "summary": "Update Profile",
+        "x-apidog-folder": "Profile",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Profile"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "x-apidog-ignore-properties": [],
+                  "x-apidog-orders": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/413215/apis/api-5095873-run"
+      }
+    },
+    "/purchases": {
+      "get": {
+        "summary": "Get All Purchases",
+        "x-apidog-folder": "Purchases",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Purchases"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "x-apidog-ignore-properties": [],
+                  "x-apidog-orders": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/413215/apis/api-5095714-run"
+      },
+      "post": {
+        "summary": "Create purchases",
+        "x-apidog-folder": "Purchases",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Purchases"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "x-apidog-ignore-properties": [],
+                  "x-apidog-orders": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/413215/apis/api-5095719-run"
+      }
+    },
+    "/purchases/vendor/2": {
+      "get": {
+        "summary": "Get All Purchases By Vendor",
+        "x-apidog-folder": "Purchases",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Purchases"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "x-apidog-ignore-properties": [],
+                  "x-apidog-orders": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/413215/apis/api-5095715-run"
+      }
+    },
+    "/purchases/4": {
+      "get": {
+        "summary": "Get Purchases by Id",
+        "x-apidog-folder": "Purchases",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Purchases"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "x-apidog-ignore-properties": [],
+                  "x-apidog-orders": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/413215/apis/api-5095716-run"
+      }
+    },
+    "/purchases/user/2": {
+      "get": {
+        "summary": "Get All Purchases By User",
+        "x-apidog-folder": "Purchases",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Purchases"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "x-apidog-ignore-properties": [],
+                  "x-apidog-orders": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/413215/apis/api-5095720-run"
+      }
+    },
+    "/cart": {
+      "get": {
+        "summary": "Get cart",
+        "x-apidog-folder": "Cart",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Cart"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "x-apidog-ignore-properties": [],
+                  "x-apidog-orders": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/413215/apis/api-5095731-run"
+      },
+      "post": {
+        "summary": "Add cart",
+        "x-apidog-folder": "Cart",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Cart"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {},
+                "x-apidog-ignore-properties": [],
+                "x-apidog-orders": []
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "x-apidog-ignore-properties": [],
+                  "x-apidog-orders": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/413215/apis/api-5095881-run"
+      }
+    },
+    "/favorites": {
+      "get": {
+        "summary": "Get favorites",
+        "x-apidog-folder": "Favorites",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Favorites"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "x-apidog-ignore-properties": [],
+                  "x-apidog-orders": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/413215/apis/api-5095732-run"
+      }
+    },
+    "/cart/7": {
+      "delete": {
+        "summary": "Remove cart",
+        "x-apidog-folder": "Cart",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Cart"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "x-apidog-ignore-properties": [],
+                  "x-apidog-orders": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/413215/apis/api-5095875-run"
+      }
+    },
+    "/favorites/7": {
+      "get": {
+        "summary": "Add favorite",
+        "x-apidog-folder": "Favorites",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Favorites"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "x-apidog-ignore-properties": [],
+                  "x-apidog-orders": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/413215/apis/api-5095878-run"
+      },
+      "delete": {
+        "summary": "Remove favorite",
+        "x-apidog-folder": "Favorites",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Favorites"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "x-apidog-ignore-properties": [],
+                  "x-apidog-orders": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/413215/apis/api-5095879-run"
+      }
+    },
+    "/ratings": {
+      "post": {
+        "summary": "Create rating",
+        "x-apidog-folder": "Ratings",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Ratings"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {},
+                "x-apidog-ignore-properties": [],
+                "x-apidog-orders": []
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "x-apidog-ignore-properties": [],
+                  "x-apidog-orders": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/413215/apis/api-5096923-run"
+      }
+    },
+    "/ratings/1": {
+      "put": {
+        "summary": "Update rating",
+        "x-apidog-folder": "Ratings",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Ratings"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {},
+                "x-apidog-ignore-properties": [],
+                "x-apidog-orders": []
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "x-apidog-ignore-properties": [],
+                  "x-apidog-orders": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/413215/apis/api-5096924-run"
+      }
+    },
+    "/comments": {
+      "get": {
+        "summary": "Get comments",
+        "x-apidog-folder": "Comments",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Comments"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "x-apidog-ignore-properties": [],
+                  "x-apidog-orders": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/413215/apis/api-5096931-run"
+      },
+      "post": {
+        "summary": "Create comment",
+        "x-apidog-folder": "Comments",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Comments"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {},
+                "x-apidog-ignore-properties": [],
+                "x-apidog-orders": []
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "x-apidog-ignore-properties": [],
+                  "x-apidog-orders": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/413215/apis/api-5096933-run"
+      }
+    },
+    "/comments/7": {
+      "get": {
+        "summary": "Get Comments for Product",
+        "x-apidog-folder": "Comments",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Comments"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "x-apidog-ignore-properties": [],
+                  "x-apidog-orders": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/413215/apis/api-5096932-run"
+      }
+    },
+    "/comments/1": {
+      "delete": {
+        "summary": "Delete comment",
+        "x-apidog-folder": "Comments",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Comments"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "x-apidog-ignore-properties": [],
+                  "x-apidog-orders": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/413215/apis/api-5096935-run"
+      }
+    },
+    "/discounts": {
+      "get": {
+        "summary": "Get discounts",
+        "x-apidog-folder": "Discounts",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Discounts"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "x-apidog-ignore-properties": [],
+                  "x-apidog-orders": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/413215/apis/api-5096937-run"
+      },
+      "post": {
+        "summary": "Create discounts",
+        "x-apidog-folder": "Discounts",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Discounts"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "x-apidog-ignore-properties": [],
+                  "x-apidog-orders": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/413215/apis/api-5096996-run"
+      }
+    },
+    "/discounts/1": {
+      "get": {
+        "summary": "Get discount by ID",
+        "x-apidog-folder": "Discounts",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Discounts"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "x-apidog-ignore-properties": [],
+                  "x-apidog-orders": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/413215/apis/api-5096938-run"
+      },
+      "put": {
+        "summary": "Update discounts",
+        "x-apidog-folder": "Discounts",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Discounts"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {},
+                "x-apidog-ignore-properties": [],
+                "x-apidog-orders": []
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "x-apidog-ignore-properties": [],
+                  "x-apidog-orders": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/413215/apis/api-5096941-run"
+      },
+      "delete": {
+        "summary": "Delete discount",
+        "x-apidog-folder": "Discounts",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Discounts"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "x-apidog-ignore-properties": [],
+                  "x-apidog-orders": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/413215/apis/api-5096942-run"
+      }
+    },
+    "/discounts/product/1": {
+      "get": {
+        "summary": "Get discount for Product",
+        "x-apidog-folder": "Discounts",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Discounts"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "x-apidog-ignore-properties": [],
+                  "x-apidog-orders": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/413215/apis/api-5096939-run"
+      }
+    },
+    "/discounts/vendor": {
+      "get": {
+        "summary": "Get discount for vendor",
+        "x-apidog-folder": "Discounts",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Discounts"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "x-apidog-ignore-properties": [],
+                  "x-apidog-orders": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/413215/apis/api-5096940-run"
+      }
+    }
+  },
+  "components": {
+    "schemas": {}
+  },
+  "servers": [
+    {
+      "url": "http://localhost:4000/api/v1",
+      "description": "Development server"
+    }
+  ]
+}
