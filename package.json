@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "start": "node dist/index.js",
-    "build": "babel src --out-dir dist && npm start",
+    "build": "babel src --out-dir dist",
     "dev": "nodemon --exec babel-node src/index.js",
     "seed": "node ./prisma/seed.js",
     "lint": "eslint .  --ext .js",
