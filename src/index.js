@@ -1,11 +1,11 @@
 import 'dotenv/config';
 import cors from 'cors';
 import express from 'express';
-import swaggerUi from 'swagger-ui-express';
+// import swaggerUi from 'swagger-ui-express';
 import morgan from 'morgan';
 import helmet from 'helmet';
 import fileUpload from 'express-fileupload';
-import swaggerDocument from './config/swagger.json';
+// import swaggerDocument from './config/swagger.json';
 import routes from './routes/v1';
 import webhooks from './routes/webhooks';
 import * as error from './middlewares/error.middleware';
@@ -65,7 +65,7 @@ app.use('/api/v1/analytics', routes.analytic);
 //
 app.use('/webhooks/payments', webhooks.payments);
 
-app.use('/api-docs/v1', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+/* app.use('/api-docs/v1', swaggerUi.serve, swaggerUi.setup(swaggerDocument)); */
 
 app.use(error.converter);
 
