@@ -32,6 +32,7 @@ const AuthService = {
         name: userData.name,
         createdAt: new Date(),
         roleId: rolToAssign.id,
+        isVerified: true,
       },
     });
 
@@ -91,6 +92,58 @@ const AuthService = {
   generateToken(data) {
     return jwt.sign(data, process.env.SECRET, { expiresIn: '7d' });
   },
+
+  async generateOTP(email) {
+
+    const exist = await prisma.verificacionToken.findUnique({
+      where: {
+        email,
+      },
+    });
+
+    const otp = Math.floor(100000 + Math.random() * 900000);
+
+    if (!exist) {
+      await prisma.verificacionToken.create({
+        data: {
+          email,
+          token: otp,
+          fechaExpiracion: new Date(Date.now() + 24 * 60 * 60 * 1000),
+        },
+      });
+    } else {
+      await prisma.verificacionToken.update({
+        where: {
+          email,
+        },
+        data: {
+          token: otp,
+          fechaExpiracion: new Date(Date.now() + 24 * 60 * 60 * 1000),
+        },
+      });
+    }
+
+    return otp;
+  },
+
+  async verifyOTP(email, otp) {
+    const token = await prisma.verificacionToken.findFirst({
+      where: {
+        email,
+        token: otp,
+        fechaExpiracion: {
+          gt: new Date(),
+        },
+      },
+    });
+
+    if (!token) {
+      return false;
+    }
+
+    return true;
+  }
+
 };
 
 export default AuthService;
