@@ -23,8 +23,17 @@ model User {
   comments         Comment[]
   ratings          Rating[]
   imageProfile     String?
+  isVerified       Boolean           @default(false)
   createdAt        DateTime
   updatedAt        DateTime          @updatedAt
+}
+
+model VerificacionToken {
+  id              Int      @id @default(autoincrement())
+  email           String   @unique
+  token           BigInt
+  fechaCreacion   DateTime @default(now())
+  fechaExpiracion DateTime
 }
 
 model Product {

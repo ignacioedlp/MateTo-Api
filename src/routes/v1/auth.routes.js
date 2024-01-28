@@ -1,13 +1,20 @@
-import { Resend } from 'resend';
 import { Router } from 'express';
 import AuthService from '../../services/authServices';
 import UserService from '../../services/userServices';
 import logger from '../../config/logger';
+import { sendEmail } from '../../services/emailServices';
 
 const router = Router();
 
 router.post('/signup', async (req, res) => {
   try {
+
+    const userVerify = await AuthService.verifyOTP(req.body.email, parseInt(req.body.otp));
+
+    if (!userVerify) {
+      throw new Error('Codigo de verificacion incorrecto');
+    }
+
     const user = await AuthService.register(req.body);
     res.status(201).json(user);
   } catch (error) {
@@ -56,7 +63,7 @@ router.post('/forgot-password', async (req, res) => {
     const token = AuthService.generateToken({ email: user.email });
     const link = `http://localhost:3000/reset-password/${token}`;
 
-    const resend = new Resend('re_AdzbXU95_BsLv1dqz8YoGfA6SDJ5EsJ9N');
+    const resend = new Resend('re_AmJstsp6_BfTwFfE98mhk75vwMVukXBq9');
 
     const { error } = await resend.emails.send({
       from: 'MateTo <support@resend.dev>',
@@ -82,6 +89,29 @@ router.post('/reset-password', async (req, res) => {
     const { email } = AuthService.verifyToken(token);
     await AuthService.changePassword(email, newPassword);
     res.status(204).end();
+  } catch (error) {
+    logger.error(error.message);
+    res.status(500).send(error.message);
+  }
+});
+
+router.post('/verify-email', async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    const otp = await AuthService.generateOTP(email);
+
+    const result = await sendEmail(
+      email,
+      'Verificacion de email',
+      `<p>El codigo de verificacion es: ${otp}, es valido por un dia.</p>`
+    );
+
+    if (!result) {
+      throw new Error('Error al enviar el email');
+    }
+
+    res.status(204).json({ message: 'Email enviado' });
   } catch (error) {
     logger.error(error.message);
     res.status(500).send(error.message);
