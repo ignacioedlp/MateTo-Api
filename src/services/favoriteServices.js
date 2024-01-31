@@ -39,6 +39,25 @@ const FavoriteService = {
     });
   },
 
+  async getFavoritesByProductId(productId, userId) {
+    const favorites = await prisma.user.findUnique({
+      where: { id: userId },
+      include: {
+        favoriteProducts: {
+          include: {
+            product: {
+              select: {
+                id: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    return favorites.favoriteProducts.find((favorite) => favorite.product.id === productId);
+  }
+
 };
 
 export default FavoriteService;
