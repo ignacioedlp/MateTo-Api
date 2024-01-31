@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 import ProductService from '../services/productServices';
 import SupabaseService from '../services/supabaseServices';
 import logger from '../config/logger';
+import FavoriteService from '../services/favoriteServices';
 
 /**
  * Controller for handling product-related operations.
@@ -11,7 +12,20 @@ import logger from '../config/logger';
 const ProductsController = {
   getAllProducts: async (req, res, next) => {
     try {
+      const token = req.headers.authorization?.split(' ')[1];
+      const decoded = jwt.verify(token, process.env.SECRET);
+
       const response = await ProductService.getAllProducts(req.query);
+      const favorites = await FavoriteService.getFavorites(decoded.userId);
+
+      response.products.forEach((product) => {
+        const favorite = favorites.favoriteProducts.find((fav) => fav.product.id === product.id);
+        if (favorite) {
+          product.favorited = true;
+        } else {
+          product.favorited = false;
+        }
+      });
 
       res.status(200).json(response);
     } catch (err) {
@@ -22,7 +36,17 @@ const ProductsController = {
 
   getProductById: async (req, res, next) => {
     try {
+      const token = req.headers.authorization?.split(' ')[1];
+      const decoded = jwt.verify(token, process.env.SECRET);
+
       const product = await ProductService.getProductById(req.params.id);
+      const favorites = await FavoriteService.getFavoritesByProductId(req.params.id, decoded.userId);
+
+      if (favorites) {
+        product.favorited = true;
+      } else {
+        product.favorited = false;
+      }
       res.status(200).json(product);
     } catch (err) {
       logger.error(err);
