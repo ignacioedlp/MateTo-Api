@@ -12,7 +12,20 @@ import FavoriteService from '../services/favoriteServices';
 const ProductsController = {
   getAllProducts: async (req, res, next) => {
     try {
+      const token = req.headers.authorization?.split(' ')[1];
+      const decoded = jwt.verify(token, process.env.SECRET);
+
       const response = await ProductService.getAllProducts(req.query);
+      const favorites = await FavoriteService.getFavorites(decoded.userId);
+
+      response.products.forEach((product) => {
+        const favorite = favorites.favoriteProducts.find((fav) => fav.product.id === product.id);
+        if (favorite) {
+          product.favorited = true;
+        } else {
+          product.favorited = false;
+        }
+      });
 
       res.status(200).json(response);
     } catch (err) {
