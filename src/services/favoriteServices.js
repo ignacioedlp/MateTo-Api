@@ -55,7 +55,7 @@ const FavoriteService = {
       },
     });
 
-    return favorites.favoriteProducts.find((favorite) => favorite.product.id === productId);
+    return favorites.favoriteProducts.find((favorite) => favorite.productId === Number(productId));
   }
 
 };
