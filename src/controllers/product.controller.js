@@ -21,8 +21,10 @@ const ProductsController = {
       response.products.forEach((product) => {
         const favorite = favorites.favoriteProducts.find((fav) => fav.product.id === product.id);
         if (favorite) {
+          // eslint-disable-next-line no-param-reassign
           product.favorited = true;
         } else {
+          // eslint-disable-next-line no-param-reassign
           product.favorited = false;
         }
       });
@@ -40,7 +42,9 @@ const ProductsController = {
       const decoded = jwt.verify(token, process.env.SECRET);
 
       const product = await ProductService.getProductById(req.params.id);
-      const favorites = await FavoriteService.getFavoritesByProductId(req.params.id, decoded.userId);
+      // eslint-disable-next-line no-param-reassign
+      const favorites = await FavoriteService
+        .getFavoritesByProductId(req.params.id, decoded.userId);
 
       if (favorites) {
         product.favorited = true;
